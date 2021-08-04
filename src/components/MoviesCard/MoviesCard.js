@@ -10,15 +10,15 @@ function MoviesCard(card) {
         />
         <figcaption className="movies-card__caption">
         <div className="movies-card__container">
-          <h2 className="movies-card__title">{card.title}</h2>
+          <h3 className="movies-card__title">{card.title}</h3>
          
             <button
               aria-label="Кнопка 'нравится'."
               type="button"
-              className="mobies-card__like-button"
+              className={card.className}
             ></button>
             </div>
-            <span className="movies-card__srcduration">{card.duration}</span>
+            <span className="movies-card__duration">{card.duration}</span>
           
         </figcaption>
 

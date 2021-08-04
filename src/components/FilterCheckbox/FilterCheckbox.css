@@ -58,3 +58,7 @@
   display: inline-block;
   margin-bottom: 48px;
 }
+
+.filter-checkbox__input_visible:hover {
+  background-color: #dddddd;
+}
