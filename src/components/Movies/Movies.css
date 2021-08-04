@@ -1,3 +1,6 @@
-.movies {
+.main {
     border:1px red solid;
+    margin:  0 auto;
+    max-width: 1140px;
+    
 }
