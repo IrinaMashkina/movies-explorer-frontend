@@ -1,7 +1,8 @@
 .about-project {
+    
   margin: 0 auto;
   max-width: 1140px;
-  min-height: 608px;
+  max-height: 608px;
   padding: 110px 0;
 }
 
@@ -48,14 +49,14 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
+  /* grid-template-rows: 1fr; */
 }
 
 .about-project__spans {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1fr;
+  /* grid-template-rows: 1fr; */
 }
 
 .about-project__span {
