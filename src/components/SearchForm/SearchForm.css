@@ -26,6 +26,10 @@
   padding: 0;
 }
 
+.search-form__input::placeholder {
+  color: #a0a0a0;
+}
+
 .search-form__input:focus {
   outline: none;
 }
@@ -33,6 +37,7 @@
 .search-form__submit {
   position: relative;
   background-color: #3456f3;
+  transition: background-color ease-in-out 0.2s;
   border-radius: 48px;
   width: 34px;
   height: 34px;
@@ -43,4 +48,6 @@
   border: none;
 }
 
-
+.search-form__submit:hover {
+  background-color: #5571eb;
+}

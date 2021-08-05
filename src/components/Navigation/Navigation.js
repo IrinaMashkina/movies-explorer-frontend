@@ -14,7 +14,7 @@ function Navigation() {
       </ul>
 
       <div className="navigation__profile">
-        <p className="navigation__link">Аккаунт</p>
+        <p className="navigation__profile-text">Аккаунт</p>
         <Link className="navigation__icon" to="#"></Link>
       </div>
     </nav>

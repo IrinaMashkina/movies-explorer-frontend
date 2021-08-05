@@ -7,7 +7,7 @@
 }
 
 .movies-card__image {
-    
+
 }
 
 .movies-card__caption {
@@ -40,6 +40,7 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
 
 .movies-card__like-button_active {
   background-image: url(../../images/like-active.svg);
