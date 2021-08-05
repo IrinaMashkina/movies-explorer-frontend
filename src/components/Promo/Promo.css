@@ -1,4 +1,56 @@
 .promo {
-    width: 100%;
-    background-color: #073042;
+  font-family: "Inter", "Arial", sans-serif;
+  width: 100%;
+  background-color: #073042;
+}
+
+.promo-header {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promo-header__links {
+  min-width: 183px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promo-header__link {
+  display: block;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: white;
+  transition: color ease-in-out 0.2s;
+}
+
+.promo-header__link_acrive {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 32px;
+  background-color: #2be080;
+  border-radius: 3px;
+  text-align: center;
+  color: black;
+}
+
+.promo-header__link:hover {
+    color: #747474;
+}
+
+.promo-title {
+}
+
+.promo-title__text {
 }
