@@ -13,7 +13,7 @@ function NavTab() {
           </a>
         </li>
         <li className="nav-tab__item">
-          <a className="nav-tab__link" href="#student">
+          <a className="nav-tab__link" href="#about-me">
             Студент
           </a>
         </li>
