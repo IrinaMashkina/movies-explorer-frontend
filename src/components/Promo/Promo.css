@@ -46,11 +46,29 @@
 }
 
 .promo-header__link:hover {
-    color: #747474;
+  color: #747474;
 }
 
 .promo-title {
+  background-image: url(../../images/landing-logo.svg);
+  background-repeat: no-repeat;
+  background-size: 320px 320px;
+  background-position: center;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  max-width: 1140px;
+  min-height: 524px;
 }
 
 .promo-title__text {
+  max-width: 730px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 1.16;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #ffffff;
 }

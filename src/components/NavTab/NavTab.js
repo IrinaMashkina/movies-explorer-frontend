@@ -1,19 +1,19 @@
 function NavTab() {
   return (
-    <nav className="navigation">
-      <ul>
-        <li className="navigation__item">
-          <a className="navigation__link" href="#about-project">
+    <nav className="nav-tab">
+      <ul className="nav-tab__list">
+        <li className="nav-tab__item">
+          <a className="nav-tab__link" href="#about-project">
             О проекте
           </a>
         </li>
-        <li className="navigation__item">
-          <a className="navigation__link" href="#techs">
+        <li className="nav-tab__item">
+          <a className="nav-tab__link" href="#techs">
             Технологии
           </a>
         </li>
-        <li className="navigation__item">
-          <a className="navigation__link" href="#student">
+        <li className="nav-tab__item">
+          <a className="nav-tab__link" href="#student">
             Студент
           </a>
         </li>
