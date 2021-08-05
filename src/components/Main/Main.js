@@ -10,7 +10,6 @@ function Main() {
     <main className="main-in-main">
       <Promo />
       <AboutProject />
-      <NavTab />
       <Techs />
       <AboutMe />
       <Portfolio />
