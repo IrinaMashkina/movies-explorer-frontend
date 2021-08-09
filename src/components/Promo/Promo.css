@@ -34,7 +34,7 @@
   transition: color ease-in-out 0.2s;
 }
 
-.promo-header__link_acrive {
+.promo-header__link_active {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,7 +59,7 @@
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  max-width: 1140px;
+  max-width: 1240px;
   min-height: 524px;
 }
 

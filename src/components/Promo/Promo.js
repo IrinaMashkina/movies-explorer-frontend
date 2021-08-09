@@ -11,7 +11,7 @@ function Promo() {
           <Link className="promo-header__link" to="#">
             Регистрация
           </Link>
-          <Link className="promo-header__link promo-header__link_acrive" to="#">
+          <Link className="promo-header__link promo-header__link_active" to="#">
             Войти
           </Link>
         </ul>

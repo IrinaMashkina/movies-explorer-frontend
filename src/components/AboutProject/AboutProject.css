@@ -1,5 +1,4 @@
 .about-project {
-    
   margin: 0 auto;
   max-width: 1240px;
   max-height: 608px;
@@ -9,6 +8,7 @@
 .about-project__title {
   width: 100%;
   padding: 0 0 23px;
+  margin: 0;
   border-bottom: 1px solid #000;
   font-style: normal;
   font-weight: normal;
@@ -18,7 +18,9 @@
 }
 
 .about-project__columns {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
   padding: 70px 0 110px;
 }
 
@@ -102,4 +104,24 @@
   font-size: 14px;
   line-height: 17px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 1000px) {
+
+.about-project {
+    padding:  90px 50px;
+}
+.about-project__text-title {
+    margin: 0 auto 22px;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__columns {
+      column-gap: 30px;
+      padding: 70px 0 93px;
+  }
 }

@@ -60,4 +60,34 @@
   height: 60px;
   background-color: #e8e8e8;
   border-radius: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 1000px) {
+  .techs {
+    padding: 90px 50px;
+  }
+  .techs__list {
+    max-width: 648px;
+  }
+
+  .techs__text {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 auto 83px;
+  }
+  .techs__text-title {
+    margin: 0 auto;
+    padding: 80px 0 22px;
+  }
+  .techs__item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }
