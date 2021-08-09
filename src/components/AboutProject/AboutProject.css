@@ -1,9 +1,9 @@
 .about-project {
     
   margin: 0 auto;
-  max-width: 1140px;
+  max-width: 1240px;
   max-height: 608px;
-  padding: 110px 0;
+  padding: 110px 50px;
 }
 
 .about-project__title {

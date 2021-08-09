@@ -18,7 +18,7 @@ function AboutMe() {
           <ul className="about-me__links">
             <li>
               <a
-                className="footer__link"
+                className="about-me__link"
                 href="https://github.com/IrinaMashkina"
                 target="_blank" rel="noreferrer"
               >
@@ -26,13 +26,16 @@ function AboutMe() {
               </a>
             </li>
             <li>
-              <a className="footer__link" href="#" target="_blank" rel="noreferrer">
+              <a className="about-me__link" href="#" target="_blank" rel="noreferrer">
                 Facebook
               </a>
             </li>
           </ul>
         </div>
-        <img className="about-me__avatar" src={avatar} alt="Аватар"/>
+        
+        <div className="about-me__avatar-container">
+            <img className="about-me__avatar" src={avatar} alt="Аватар" />
+        </div>
       </div>
       <Portfolio />
     </section>

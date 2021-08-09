@@ -1,5 +1,5 @@
 .techs {
-  padding: 100px 0;
+  padding: 100px 50px;
   width: 100%;
   max-height: 625px;
   background-color: #f5f5f5;
@@ -7,7 +7,7 @@
 }
 
 .techs__title {
-  max-width: 1140px;
+  max-width: 1240px;
   width: 100%;
   padding: 0 0 23px;
   margin: 0 auto;
@@ -20,7 +20,7 @@
 }
 
 .techs__text-title {
-  max-width: 1140px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 90px 0 26px;
   font-style: normal;
