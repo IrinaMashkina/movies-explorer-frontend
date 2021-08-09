@@ -1,14 +1,12 @@
 .techs {
   padding: 100px 50px;
-  width: 100%;
   max-height: 625px;
   background-color: #f5f5f5;
-  margin: 0 auto 115px;
+  margin: 0 auto;
 }
 
 .techs__title {
   max-width: 1240px;
-  width: 100%;
   padding: 0 0 23px;
   margin: 0 auto;
   border-bottom: 1px solid #000;

@@ -1,12 +1,13 @@
 .about-me {
   max-width: 1240px;
-  padding: 0 50px;
-  margin: 0 auto;
+  padding: 110px 50px 0;
+  margin: 115px auto 0;
 }
 
 .about-me__title {
   width: 100%;
   padding: 0 0 23px;
+  margin: 0;
   border-bottom: 1px solid #000;
   font-style: normal;
   font-weight: normal;
@@ -47,9 +48,11 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
+  margin: 0;
   margin-bottom: 26px;
 }
 .about-me__text {
+  margin: 0;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
@@ -90,10 +93,22 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .about-me {
+      margin-top: 0;
+    padding: 90px 50px;
+  }
+
+  .about-me__columns {
+      column-gap: 49px;
+  }
   .about-me__name {
     font-size: 40px;
     line-height: 40px;
     margin-bottom: 16px;
+  }
+  .about-me__avatar-container {
+    width: 255px;
+    height: 307px;
   }
 
   .about-me__description {
