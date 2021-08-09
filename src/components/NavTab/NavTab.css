@@ -31,3 +31,13 @@
   line-height: 16px;
   text-decoration-line: underline;
 }
+
+@media  screen and (max-width: 700px) {
+  .nav-tab__link {
+    font-size: 11px;
+  }
+
+  .nav-tab__list {
+    width: 214px;
+  }
+}

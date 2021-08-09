@@ -45,12 +45,38 @@
   text-decoration: none;
   color: black;
   transition: color ease-in-out 0.2s;
-
 }
 
 .footer__link:hover {
-    color: #484848;
-   
-    
-    
+  color: #484848;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    padding: 79px 10px 10px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .footer__container {
+    margin-top: 21px;
+    padding-top: 30px;
+    flex-direction: column-reverse;
+  }
+
+  .footer__copyright {
+    margin-top: 20px;
+    color: #a0a0a0;
+  }
+
+  .footer__links {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .footer__link {
+    margin: 0 auto;
+    margin-bottom: 12px;
+    text-align: center;
+  }
 }
