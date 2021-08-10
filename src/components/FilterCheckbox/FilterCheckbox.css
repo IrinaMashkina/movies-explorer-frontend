@@ -62,3 +62,52 @@
 .filter-checkbox__input_visible:hover {
   background-color: #dddddd;
 }
+
+
+
+
+@media screen and (max-width: 1000px) {
+  .filter-checkbox {
+    margin-top: 29px;
+    flex-direction: row-reverse;
+    justify-content: end;
+    
+  }
+  .filter-checkbox__input_visible {
+
+    margin: 0 0 0 16px;
+  }
+  .filter-checkbox__text {
+    margin-bottom: 61px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .filter-checkbox {
+    margin-top: 29px;
+    flex-direction: row-reverse;
+    justify-content: end;
+    
+  }
+  .filter-checkbox__input_visible {
+    margin: 0 0 0 16px;
+  }
+  .filter-checkbox__text {
+    margin-bottom: 61px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .filter-checkbox {
+    margin-top: 41px;
+    flex-direction: row-reverse;
+    justify-content: center;
+    
+  }
+  .filter-checkbox__input_visible {
+    margin: 0 0 0 13px;
+  }
+  .filter-checkbox__text {
+    margin-bottom: 50px;
+  }
+}

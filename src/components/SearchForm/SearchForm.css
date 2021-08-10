@@ -51,3 +51,31 @@
 .search-form__submit:hover {
   background-color: #5571eb;
 }
+
+
+@media screen and (max-width: 1000px) {
+  .search-form {
+    min-height: 237px;
+   padding: 0 30px; /*проверить*/
+  }
+  
+  .searh-form__container {
+    padding-top: 80px;
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .search-form {
+    min-height: 238px;
+    padding: 0 14px;
+  }
+  .searh-form__container {
+    padding-top: 90px;
+    padding-bottom: 15px;
+  }
+  .search-form__input {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
