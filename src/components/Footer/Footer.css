@@ -51,6 +51,22 @@
   color: #484848;
 }
 
+
+
+
+
+@media screen and (max-width: 1000px) {
+.footer {
+  padding-left:30px ;
+  padding-right: 30px;
+}
+}
+
+
+
+
+
+
 @media screen and (max-width: 600px) {
   .footer {
     padding: 79px 10px 10px;

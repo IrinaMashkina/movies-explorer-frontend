@@ -1,17 +1,17 @@
-.main {
+.movies {
   margin: 0 auto;
   max-width: 1240px;
   padding: 0 50px;
 }
 
 @media screen and (max-width: 1000px) {
-  .main {
+  .movies {
     padding: 0 30px;
   }
 }
 
 @media screen and  (max-width: 600px) {
-  .main {
+  .movies {
     padding: 0 10px;
   }
 }

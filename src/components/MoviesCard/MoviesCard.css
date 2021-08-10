@@ -11,7 +11,7 @@
 }
 
 .movies-card__caption {
-  margin: 0 16px 16px 16px;
+  padding: 0 16px 16px 16px;
 }
 
 .movies-card__container {
@@ -61,7 +61,7 @@
   }
 
   .movies-card__caption {
-    margin: 0 14px 14px 14px;
+    padding: 0 14px 14px 14px;
   }
 
   .movies-card__container {
@@ -74,8 +74,11 @@
 }
 
 @media screen and (max-width: 600px) {
+  .movies-card {
+    margin-bottom: 14px;
+  }
   .movies-card__caption {
-    margin: 0 14px 14px 14px;
+    padding: 0 14px 14px 14px;
   }
 
   .movies-card__container {
