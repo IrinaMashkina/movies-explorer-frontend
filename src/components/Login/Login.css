@@ -81,3 +81,32 @@
     color: #ff3055;
 }
 
+
+
+
+
+@media screen and (max-width: 600px) {
+    .register-form__label {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  
+    .register-form__input {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  
+    .register-form__input-error {
+      font-size: 10px;
+      line-height: 12px;
+    }
+.login-form__question {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .login-form__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

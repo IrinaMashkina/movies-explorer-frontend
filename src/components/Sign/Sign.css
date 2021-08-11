@@ -1,8 +1,15 @@
+.sign-page {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+}
+
 .form {
-  max-width: 496px;
-  padding: 70px 50px;
-  margin: 0 auto;
+  margin: auto;
+  width: 496px;
+  padding: 50px;
   box-sizing: border-box;
+
 }
 
 .form__logo {
@@ -33,8 +40,34 @@
   color: #ffffff;
 }
 
+@media screen and (max-width: 1000px) {
+  .form {
+    padding: 30px 30px;
+    max-width: 456px;
+  }
+}
 
+@media screen and (max-width: 600px) {
+  .form {
+    padding: 30px 30px;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+  }
+  .form__logo {
+    margin: 0 auto;
+    text-align: center;
+  }
 
-@media screen and (max-width:600px) {
-    
+  .form__title {
+      margin: 50px auto 80px;
+      font-size: 24px;
+line-height: 29px;
+  }
+
+  .form__button-submit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
 }
