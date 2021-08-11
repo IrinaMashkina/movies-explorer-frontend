@@ -6,34 +6,43 @@ import Footer from "../Footer/Footer";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import { Route, Switch } from "react-router-dom";
-
-// import Main from "../Main/Main";
+import Main from "../Main/Main";
+import Profile from "../Profile/Profile";
 
 function App() {
   return (
-    // <div className="page">
-    //   <Header />
-    //   <Movies />
-    //   <Footer />
-    // </div>
-
-    // <div className="page">
-    //   <Main />
-    //   <Footer />
-    // </div>
-
     <div className="page">
       <Switch>
-        <Route path="/sign-up">
+        <Route path="/signup">
           <Register />
         </Route>
-        <Route path="/sign-in">
+        <Route path="/signin">
           <Login />
         </Route>
+        <Route path="/moovies">
+          <div className="page">
+            <Header />
+            <Movies />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/saved-moovies">
+          <div className="page">
+            <Main />
+            <Footer />
+          </div>
+        </Route>
+        <Route path="/profile">
+          <div className="page">
+            <Header />
+            <Profile />
+          </div>
+        </Route>
         <Route path="/">
-          <Header />
-          <Movies />
-          <Footer />
+          <div className="page">
+            <Main />
+            <Footer />
+          </div>
         </Route>
       </Switch>
     </div>

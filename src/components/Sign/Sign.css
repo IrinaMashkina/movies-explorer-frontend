@@ -9,7 +9,6 @@
   width: 496px;
   padding: 50px;
   box-sizing: border-box;
-
 }
 
 .form__logo {
@@ -60,14 +59,13 @@
   }
 
   .form__title {
-      margin: 50px auto 80px;
-      font-size: 24px;
-line-height: 29px;
+    margin: 50px auto 80px;
+    font-size: 24px;
+    line-height: 29px;
   }
 
   .form__button-submit {
     font-size: 12px;
     line-height: 15px;
   }
-
 }
