@@ -1,11 +1,12 @@
+import React from "react";
 import Sign from "../Sign/Sign";
 import { Link } from "react-router-dom";
 
 function Register() {
   const link = (
-    <p className="form__question">
+    <p className="register-form__question">
       Уже зарегистрированы?
-      <Link className="form__link" to="/sign-in">
+      <Link className="register-form__link" to="/sign-in">
         Войти
       </Link>
     </p>
@@ -13,19 +14,58 @@ function Register() {
 
   return (
     <Sign title="Добро пожаловать!" buttonText="Зарегистрироваться" link={link}>
-      <section className="form__section">
-        <label for="name" className="form__label">
-          Имя
-        </label>
-        <input type="input" id="name" className="form__input"></input>
-        <label forHtml="email" className="form__label">
-          E-mail
-        </label>
-        <input type="input" id="email" className="form__input"></input>
-        <label forHtml="password" className="form__label">
-          Пароль
-        </label>
-        <input type="input" id="password" className="form__input"></input>
+      <section className="register-form">
+        <section className="register-form__section">
+          <label htmlFor="name" className="register-form__label">
+            Имя
+          </label>
+          <input
+            id="name"
+            className="register-form__input"
+            name="text"
+            type="text"
+            required
+            minLength="2"
+            maxLength="40"
+          ></input>
+          <span className="register-form__input-error">
+            Ошибка
+          </span>
+        </section>
+        <section className="register-form__section">
+          <label htmlFor="email" className="register-form__label">
+            E-mail
+          </label>
+          <input
+            type="email"
+            id="password"
+            name="email"
+            required
+            minLength="2"
+            maxLength="40"
+            className="register-form__input"
+          ></input>
+          <span className="register-form__input-error">
+            Ошибка
+          </span>
+        </section>
+        <section className="register-form__section">
+          <label htmlFor="password" className="register-form__label">
+            Пароль
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="register-form__input"
+            name="password"
+            required
+            minLength="2"
+            maxLength="40"
+          ></input>
+          <span className="register-form__input-error">
+            Ошибка
+          </span>
+        </section>
       </section>
     </Sign>
   );
