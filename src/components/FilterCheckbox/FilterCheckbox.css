@@ -82,20 +82,11 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  .filter-checkbox {
-    margin-top: 29px;
-    flex-direction: row-reverse;
-    justify-content: end;
-    
-  }
-  .filter-checkbox__input_visible {
-    margin: 0 0 0 16px;
-  }
-  .filter-checkbox__text {
-    margin-bottom: 61px;
-  }
-}
+
+
+
+
+
 
 @media screen and (max-width: 600px) {
   .filter-checkbox {

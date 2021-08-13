@@ -1,39 +1,55 @@
+
+
+
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import React from "react";
-import { Link } from "react-router-dom";
-import {useLocation} from 'react-router-dom';
-const windowSize = window.innerWidth;
+import { NavLink } from "react-router-dom";
+
+
+
 
 function Navigation() {
-  const location = useLocation();
   return (
     <nav className="navigation">
-      {windowSize > 1000 && (
-        <>
+     
+        <ul className="navigation__list">
           <ul className="navigation__movies">
-            <Link className="navigation__link" to="/moovies">
-              Фильмы
-            </Link>
-            <Link className="navigation__link" to="/saved-moovies">
-              Сохранённые фильмы
-            </Link>
+            <li className="navigation__item">
+              <NavLink
+                activeClassName="navigation__link_active"
+                className="navigation__link"
+                to="/movies"
+              >
+                Фильмы
+              </NavLink>
+            </li>
+            <li className="navigation__item">
+              <NavLink
+                activeClassName="navigation__link_active"
+                className="navigation__link"
+                to="/saved-movies"
+              >
+                Сохранённые фильмы
+              </NavLink>
+            </li>
           </ul>
 
-          <div className="navigation__profile">
-            <p className="navigation__profile-text">Аккаунт</p>
-            <Link className="navigation__icon" to="/profile"></Link>
-          </div>
-        </>
-      )}
-      {windowSize <= 1000 && (
-        <>
-          <button
-            className="navigation__hamburger-menu"
-            type="button"
-          >
-            <div className="navigation__hamburger-menu-line"></div>
-          </button>
-        </>
-      )}
+          <li className="navigation__profile">
+            <NavLink
+              activeClassName="navigation__link_active"
+              className="navigation__link navigation__link_place_profile"
+              to="/profile"
+            >
+              Аккаунт
+            </NavLink>
+            <div className="navigation__icon"></div>
+          </li>
+        </ul>
+     
+
+        <HamburgerMenu />
+
+    
     </nav>
   );
 }

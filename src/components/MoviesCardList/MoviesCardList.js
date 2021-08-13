@@ -89,13 +89,7 @@ function MoviesCardList() {
           className="movies-card__like-button"
         />
       </section>
-      <button
-        type="button"
-        className="movies__more-btn"
-        aria-label="Показать больше фильмов"
-      >
-        Ещё
-      </button>
+
     </>
   );
 }

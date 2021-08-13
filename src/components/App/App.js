@@ -8,6 +8,8 @@ import Login from "../Login/Login";
 import { Route, Switch } from "react-router-dom";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
+import NotFound from "../NotFound/NotFound";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
   return (
@@ -19,16 +21,17 @@ function App() {
         <Route path="/signin">
           <Login />
         </Route>
-        <Route path="/moovies">
+        <Route path="/movies">
           <div className="page">
             <Header />
             <Movies />
             <Footer />
           </div>
         </Route>
-        <Route path="/saved-moovies">
+        <Route path="/saved-movies">
           <div className="page">
-            <Main />
+            <Header />
+            <SavedMovies />
             <Footer />
           </div>
         </Route>
@@ -38,11 +41,14 @@ function App() {
             <Profile />
           </div>
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <div className="page">
             <Main />
             <Footer />
           </div>
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
     </div>

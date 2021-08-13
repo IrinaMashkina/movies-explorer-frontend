@@ -1,12 +1,11 @@
 .search-form {
+  box-sizing: border-box;
   min-height: 217px;
-  
 }
 
 .searh-form__container {
   display: flex;
   justify-content: space-between;
-
   width: 100%;
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 13px;
@@ -52,17 +51,14 @@
   background-color: #5571eb;
 }
 
-
 @media screen and (max-width: 1000px) {
   .search-form {
     min-height: 237px;
-
   }
-  
+
   .searh-form__container {
     padding-top: 80px;
   }
-  
 }
 
 @media screen and (max-width: 600px) {

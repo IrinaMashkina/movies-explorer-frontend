@@ -2,9 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+}
+
+.navigation__list {
+  list-style: none;
+  display: flex;
 }
 
 .navigation__movies {
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,6 +38,11 @@
 
 .navigation__link_active {
   font-weight: 500;
+
+}
+.navigation__link_active:hover {
+  cursor: default;
+  color: black;
 }
 
 .navigation__profile {
@@ -38,9 +50,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: background-color ease-in-out 0.2s;
 }
 
-.navigation__profile-text {
+.navigation__profile:hover {
+  color: #484848;
+}
+
+
+.navigation__link_place_profile {
     padding: 0;
   font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
@@ -61,78 +79,10 @@
   background-repeat: no-repeat;
   background-position: center;
   margin-left: 17px;
-  transition: background-color ease-in-out 0.2s;
 }
 
-.navigation__icon:hover {
-  background-color: #dddddd;
-}
-
-
-
-.navigation__hamburger-menu-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
-}
-.navigation__hamburger-menu {
-  display: none;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background-color:inherit;
-  position: relative;
-}
-
-.navigation__hamburger-menu:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-.navigation__hamburger-menu-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 3px;
-  background-color: #fff;
-  margin: 0;
-  padding: 0;
-  
-}
-
-.navigation__hamburger-menu-line::before {
-  position: absolute;
-  top: 9px;
-  left:0;
-  content: "";
-  width: 24px;
-  height: 3px;
-  background-color: #fff;
-  margin: 0;
-  padding: 0;
-  
-}
-
-.navigation__hamburger-menu-line::after {
-  position: absolute;
-  top:18px;
-  left:0;
-  content: "";
-  width: 24px;
-  height: 3px;
-  background-color: #fff;
-  margin: 0;
-  padding: 0;
-}
-
-@media screen and (max-width: 1000px) {
-  .navigation__hamburger-menu {
-    display: block;
+@media screen and (max-width:1000px) {
+  .navigation__list {
+    display: none;
   }
 }
