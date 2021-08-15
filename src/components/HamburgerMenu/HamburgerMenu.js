@@ -1,12 +1,30 @@
-
+import React from "react";
+import PopupMenu from "../PopupMenu/PopupMenu";
 
 function HamburgerMenu() {
+
+
+    const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = React.useState(false);
+
+    function handleToggleHamburgerMenu() {
+      setHamburgerMenuIsOpen(!hamburgerMenuIsOpen);
+    }
+  
+
+    
     return (
-      
-        <button className="hamburger-menu" type="button">
+        <>
+      { !hamburgerMenuIsOpen && (
+        <button onClick={handleToggleHamburgerMenu} className="hamburger-menu" type="button">
           <div className="hamburger-menu-line"></div>
-        </button>
-      
+        </button>)
+     }
+
+
+     {hamburgerMenuIsOpen && (
+         <PopupMenu />
+     )}
+     </>
     )
 }
 
