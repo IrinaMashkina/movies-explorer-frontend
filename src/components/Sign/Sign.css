@@ -16,6 +16,16 @@
   height: 38px;
 }
 
+
+.form__link {
+  transition: opacity ease-in-out 0.2s;
+}
+
+.form__link:hover {
+cursor: pointer;
+opacity: 0.8;
+}
+
 .form__title {
   margin: 40px 0;
   padding: 0;

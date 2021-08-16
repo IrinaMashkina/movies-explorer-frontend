@@ -9,6 +9,7 @@
 }
 
 .profile__container {
+  padding: 0 50px;
   height: 68.86vh;
   display: flex;
   margin: auto;
@@ -30,6 +31,7 @@
 
 
 .profile__grid-container {
+
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
@@ -104,14 +106,19 @@
 @media screen and (max-width: 1000px) {
   .profile__container {
     height: 43.46vh;
+    padding: 0 30px;
   }
 
   .profile__title {
     margin-bottom: 96px;
   }
+  .profile__info-container {
+    max-width: 410px;
+    width: 100%;
+ 
 }
 
-
+}
 
 
 
@@ -122,6 +129,7 @@
 
 @media screen and (max-width: 600px) {
   .profile__container {
+    padding: 0 10px;
     height: 76.4vh;
   }
 
@@ -138,4 +146,7 @@
     font-size: 12px;
     line-height: 15px;
   }
+  .profile__info-container {
+    width: 100%;
+}
 }

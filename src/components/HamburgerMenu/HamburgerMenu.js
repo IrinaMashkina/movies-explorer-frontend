@@ -15,14 +15,14 @@ function HamburgerMenu() {
     return (
         <>
       { !hamburgerMenuIsOpen && (
-        <button onClick={handleToggleHamburgerMenu} className="hamburger-menu" type="button">
+        <button  onClick={handleToggleHamburgerMenu} className="hamburger-menu" type="button">
           <div className="hamburger-menu-line"></div>
         </button>)
      }
 
 
      {hamburgerMenuIsOpen && (
-         <PopupMenu />
+         <PopupMenu toggleMenu={handleToggleHamburgerMenu} isOpen={hamburgerMenuIsOpen}/>
      )}
      </>
     )

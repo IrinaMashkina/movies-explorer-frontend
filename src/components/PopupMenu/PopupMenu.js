@@ -1,18 +1,25 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function PopupMenu() {
+function PopupMenu(props) {
   return (
-    <section className="popup-menu popup_opened">
+    <section
+      className={`popup-menu ${props.isOpen ? "popup-menu_opened" : ""}`}
+    >
       <div className="popup-menu__container">
-        <button type="button" className="popup-menu__close"></button>
+        <button
+          onClick={props.toggleMenu}
+          type="button"
+          className="popup-menu__close"
+        ></button>
         <ul className="popup-menu__list">
           <ul className="popup-menu__list_nav">
             <li className="popup-menu__item">
               <NavLink
                 activeClassName="popup-menu__link_active"
                 className="popup-menu__link"
-                exact to="/"
+                exact
+                to="/"
               >
                 Главная
               </NavLink>
