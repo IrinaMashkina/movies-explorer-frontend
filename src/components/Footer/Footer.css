@@ -78,6 +78,11 @@
     flex-direction: column-reverse;
   }
 
+
+  .footer__text {
+    text-align: center;
+  }
+
   .footer__copyright {
     margin-top: 20px;
     color: #a0a0a0;
