@@ -1,13 +1,15 @@
 import logo from "../../images/logo.svg";
 import React from "react";
-
+import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
-
 
 function Header() {
   return (
     <header className="header">
-      <img className="logo" alt="Логотип." src={logo} />
+      <Link className="header__link" to="/">
+        <img className="logo" alt="Логотип." src={logo} />
+      </Link>
+
       <Navigation />
     </header>
   );
