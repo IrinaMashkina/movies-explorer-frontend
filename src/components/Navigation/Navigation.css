@@ -36,6 +36,7 @@
 
 .navigation__link:hover {
     color: #484848;
+    cursor: pointer;
 }
 
 
@@ -49,6 +50,7 @@
 
 .navigation__profile:hover {
   color: #484848;
+  cursor: pointer;
 }
 
 

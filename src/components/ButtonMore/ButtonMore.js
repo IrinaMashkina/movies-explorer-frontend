@@ -1,8 +1,8 @@
-function BuutonMore() {
+function ButtonMore() {
     return (
         <button
         type="button"
-        className="movies__more-btn"
+        className="more-btn"
         aria-label="Показать больше фильмов"
       >
         Ещё
@@ -10,4 +10,4 @@ function BuutonMore() {
     )
 }
 
-export default BuutonMore;
+export default ButtonMore;

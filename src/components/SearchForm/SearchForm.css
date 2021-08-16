@@ -48,7 +48,8 @@
 }
 
 .search-form__submit:hover {
-  background-color: #5571eb;
+  background-color:#1b35ac;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {

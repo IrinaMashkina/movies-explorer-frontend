@@ -47,6 +47,7 @@
 
 .footer__link:hover {
   color: #484848;
+  cursor: pointer;
 }
 
 

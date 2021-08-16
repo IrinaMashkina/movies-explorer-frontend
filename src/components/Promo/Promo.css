@@ -48,6 +48,7 @@
 
 .promo-header__link:hover {
   color: #747474;
+  cursor: pointer;
 }
 
 .promo-title {

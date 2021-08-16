@@ -1,7 +1,7 @@
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import BuutonMore from "../ButtonMore/ButtonMore";
+import ButtonMore from "../ButtonMore/ButtonMore";
 
 
 function Movies() {
@@ -9,7 +9,7 @@ function Movies() {
     <main className="movies">
       <SearchForm />
       <MoviesCardList />
-      <BuutonMore />
+      <ButtonMore />
     </main>
   );
 }

@@ -5,6 +5,7 @@
   border: none;
   background-color: inherit;
   position: relative;
+  transition: opacity ease-in-out 0.2s;
 }
 
 .hamburger-menu:hover {
