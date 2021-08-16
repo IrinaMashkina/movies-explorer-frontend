@@ -29,16 +29,17 @@ function Register() {
             maxLength="40"
           ></input>
           <span className="register-form__input-error">
-            Ошибка
+            Что-то пошло не так...
           </span>
         </section>
+
         <section className="register-form__section">
           <label htmlFor="email" className="register-form__label">
             E-mail
           </label>
           <input
             type="email"
-            id="password"
+            id="email"
             name="email"
             required
             minLength="2"
@@ -46,7 +47,7 @@ function Register() {
             className="register-form__input"
           ></input>
           <span className="register-form__input-error">
-            Ошибка
+            Что-то пошло не так...
           </span>
         </section>
         <section className="register-form__section">
@@ -63,7 +64,7 @@ function Register() {
             maxLength="40"
           ></input>
           <span className="register-form__input-error">
-            Ошибка
+            Что-то пошло не так...
           </span>
         </section>
       </section>

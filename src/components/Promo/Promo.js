@@ -1,5 +1,6 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+
 import NavTab from "../NavTab/NavTab";
 
 function Promo() {
@@ -8,10 +9,10 @@ function Promo() {
       <header className="promo-header">
         <img className="logo" alt="Логотип." src={logo} />
         <ul className="promo-header__links">
-          <Link className="promo-header__link" to="#">
+          <Link className="promo-header__link" to="/signup">
             Регистрация
           </Link>
-          <Link className="promo-header__link promo-header__link_active" to="#">
+          <Link className="promo-header__link promo-header__link_active" to="/signin">
             Войти
           </Link>
         </ul>

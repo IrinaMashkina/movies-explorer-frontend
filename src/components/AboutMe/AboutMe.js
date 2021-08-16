@@ -34,7 +34,7 @@ function AboutMe() {
             <li>
               <a
                 className="about-me__link"
-                href="#"
+                href="https://m.facebook.com/irina.mashkina.54"
                 target="_blank"
                 rel="noreferrer"
               >
