@@ -50,7 +50,7 @@
 
 .navigation__profile:hover {
   color: #484848;
-  cursor: pointer;
+  
 }
 
 
@@ -70,7 +70,7 @@
   border-radius: 4px;
   width: 26px;
   height: 30px;
-  background-image: url(../../images/icon-profile.svg);
+  background-image: url(../../images/icon-profile-min.svg);
   background-size: 11.5px 14px;
   background-repeat: no-repeat;
   background-position: center;

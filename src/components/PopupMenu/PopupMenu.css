@@ -16,7 +16,7 @@
 }
 
 .popup-menu__close {
-  background-image: url(../../images/close-btn.svg);
+  background-image: url(../../images/close-btn-min.svg);
   background-size: 100%;
   background-color: rgba(0, 0, 0, 0);
   border: none;
@@ -108,7 +108,7 @@
   border-radius: 4px;
   width: 26px;
   height: 30px;
-  background-image: url(../../images/icon-profile.svg);
+  background-image: url(../../images/icon-profile-min.svg);
   background-size: 11.5px 14px;
   background-repeat: no-repeat;
   background-position: center;

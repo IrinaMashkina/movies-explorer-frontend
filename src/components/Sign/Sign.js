@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../images/logo.svg";
+import logo from "../../images/logo-min.svg";
 
 const Sign = (props) => {
   return (

@@ -1,4 +1,4 @@
-import logo from "../../images/logo.svg";
+import logo from "../../images/logo-min.svg";
 import { Link } from "react-router-dom";
 
 import NavTab from "../NavTab/NavTab";
