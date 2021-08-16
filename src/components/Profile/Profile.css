@@ -27,8 +27,7 @@
   line-height: 29px;
   text-align: center;
 }
-.profile__info {
-}
+
 
 .profile__grid-container {
   display: grid;
@@ -73,6 +72,7 @@
   display: block;
   border: none;
   background-color: inherit;
+  transition: color ease-in-out 0.2s;
 }
 .profile__button-exit {
   padding: 0;
@@ -81,8 +81,18 @@
   border: none;
   background-color: inherit;
   color: #ff3055;
+  transition: color ease-in-out 0.2s;
 }
 
+
+.profile__button-edit:hover {
+  color: #484848;
+  cursor: pointer;
+}
+.profile__button-exit:hover {
+  color: #bd485e;
+  cursor: pointer;
+}
 
 
 

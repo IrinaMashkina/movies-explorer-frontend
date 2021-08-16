@@ -6,7 +6,7 @@ function Login() {
   const link = (
     <p className="login-form__question">
       Ещё не зарегистрированы?
-      <Link className="login-form__link" to="/sign-up">
+      <Link className="login-form__link" to="/signup">
         Регистрация
       </Link>
     </p>

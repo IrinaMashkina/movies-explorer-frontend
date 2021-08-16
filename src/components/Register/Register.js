@@ -6,7 +6,7 @@ function Register() {
   const link = (
     <p className="register-form__question">
       Уже зарегистрированы?
-      <Link className="register-form__link" to="/sign-in">
+      <Link className="register-form__link" to="/signin">
         Войти
       </Link>
     </p>
