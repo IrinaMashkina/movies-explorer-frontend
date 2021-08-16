@@ -7,7 +7,7 @@ function Portfolio() {
           <p className="potrfolio__item-name">Статичный сайт</p>
           <a
             className="portfolio__link"
-            href="#"
+            href="https://github.com/IrinaMashkina/how-to-learn"
             target="_blank"
             rel="noreferrer"
           >
@@ -18,7 +18,7 @@ function Portfolio() {
           <p className="potrfolio__item-name">Адаптивный сайт</p>
           <a
             className="portfolio__link"
-            href="#"
+            href="https://github.com/IrinaMashkina/russian-travel"
             target="_blank"
             rel="noreferrer"
           >
@@ -29,7 +29,7 @@ function Portfolio() {
           <p className="potrfolio__item-name">Одностраничное приложение</p>
           <a
             className="portfolio__link"
-            href="#"
+            href="https://github.com/IrinaMashkina/react-mesto-api-full"
             target="_blank"
             rel="noreferrer"
           >
