@@ -8,9 +8,12 @@
 .navigation__list {
   list-style: none;
   display: flex;
+  padding: 0;
+  margin: 0;
 }
 
 .navigation__movies {
+  padding: 0;
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -36,14 +39,6 @@
 }
 
 
-.navigation__link_active {
-  font-weight: 500;
-
-}
-.navigation__link_active:hover {
-  cursor: default;
-  color: black;
-}
 
 .navigation__profile {
   margin-left: 50px;
@@ -79,6 +74,16 @@
   background-repeat: no-repeat;
   background-position: center;
   margin-left: 17px;
+}
+
+
+.navigation__link_active {
+  font-weight: 500;
+
+}
+.navigation__link_active:hover {
+  cursor: default;
+  color: black;
 }
 
 @media screen and (max-width:1000px) {
