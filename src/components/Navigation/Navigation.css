@@ -45,7 +45,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color ease-in-out 0.2s;
 }
 
 .navigation__profile:hover {

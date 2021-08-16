@@ -26,6 +26,8 @@
   padding: 0;
   width: 15.56px;
   height: 15.56px;
+  color: #000;
+  transition: opacity ease-in-out 0.2s;
 }
 
 .popup-menu__close:hover {
@@ -60,6 +62,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0;
+  
 }
 
 .popup-menu__list_nav {
@@ -86,10 +89,11 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  transition: color ease-in-out 0.2s;
 }
 
-.popup-menu__link_active {
-  text-decoration: underline;
+.popup-menu__link:hover {
+    color: #484848;
 }
 
 .popup-menu__profile {
@@ -109,6 +113,15 @@
   background-position: center;
   margin-left: 24.25px;
 }
+
+.popup-menu__link_active {
+    text-decoration: underline;
+  }
+
+  .popup-menu__link_active:hover {
+    cursor: default;
+    color: black;
+  }
 
 @media screen and (max-width: 600px) {
   .popup-menu__close {
