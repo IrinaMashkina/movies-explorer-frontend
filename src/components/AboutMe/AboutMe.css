@@ -167,14 +167,15 @@
     line-height: 16px;
     margin-bottom: 40px;
   }
+
   .about-me__avatar-container {
+    margin: 0 auto;
     margin-bottom: 40px;
     width: 292px;
     height: 352px;
   }
 
   .about-me__links {
-/* проверить на больших расширениях */
     width: 138px;
 
   }
