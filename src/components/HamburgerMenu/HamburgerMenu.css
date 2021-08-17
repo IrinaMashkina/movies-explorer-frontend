@@ -1,4 +1,5 @@
 .hamburger-menu {
+  padding: 0;
   display: none;
   width: 28px;
   height: 23px;
@@ -48,12 +49,33 @@
   padding: 0;
 }
 
-
-
-
-
 @media screen and (max-width: 1000px) {
   .hamburger-menu {
     display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hamburger-menu  {
+    display: block;
+    width: 22px;
+    height: 20.5px;
+  }
+
+  .hamburger-menu-line {
+    width: 22px;
+    height: 2.5px;
+  }
+
+  .hamburger-menu-line::before {
+    top: 9px;
+    width: 22px;
+    height: 2.5px;
+  }
+
+  .hamburger-menu-line::after {
+    top: 18px;
+    width: 22px;
+    height: 2.5px;
   }
 }
