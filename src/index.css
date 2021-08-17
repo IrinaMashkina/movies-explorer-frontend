@@ -5,6 +5,7 @@
 @import url(../src/components/Navigation/Navigation.css);
 @import url(../src/components/HamburgerMenu/HamburgerMenu.css);
 @import url(../src/components/Movies/Movies.css);
+@import url(../src/components/SavedMovies/SavedMovies.css);
 @import url(../src/components/SearchForm/SearchForm.css);
 @import url(../src/components/ButtonMore/ButtonMore.css);
 @import url(../src/components/MoviesCardList/MoviesCardList.css);

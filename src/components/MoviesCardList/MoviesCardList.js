@@ -12,7 +12,7 @@ import Card10 from "../../images/card10.jpg";
 import Card11 from "../../images/card11.jpg";
 import Card12 from "../../images/card12.jpg";
 
-function MoviesCardList() {
+function MoviesCardList(props) {
   return (
     <>
       <section className="movies__cardlist">
@@ -20,73 +20,73 @@ function MoviesCardList() {
           duration="1ч 47м"
           title="33 слова о дизайне"
           src={Card1}
-          className="movies-card__like-button movies-card__like-button_active"
+          className={`${props.className} ${props.activeClassName}`}
         />
         <MoviesCard
           duration="1ч 3м"
           title="Киноальманах «100 лет дизайна»"
           src={Card2}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 42м"
           title="В погоне за Бенкси"
           src={Card3}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 21м"
           title="Баския: Взрыв реальности"
           src={Card4}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 44м"
           title="Бег это свобода"
           src={Card5}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 37м"
           title="Книготорговцы"
           src={Card6}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 56м"
           title="Когда я думаю о Германии ночью"
           src={Card7}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 59м"
           title="Gimme Danger: История Игги и The Stooge..."
           src={Card8}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 42м"
           title="Дженис: Маленькая девочка грустит"
           src={Card9}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 10м"
           title="Соберись перед прыжком"
           src={Card10}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 4м"
           title="Пи Джей Харви: A dog called money"
           src={Card11}
-          className="movies-card__like-button"
+          className={props.className}
         />
         <MoviesCard
           duration="1ч 7м"
           title="По волнам: Искусство звука в кино"
           src={Card12}
-          className="movies-card__like-button"
+          className={props.className}
         />
       </section>
 

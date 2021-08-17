@@ -5,7 +5,7 @@ function SavedMovies() {
   return (
     <main className="movies">
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList className="movies-card__delete-button"/>
     </main>
   );
 }

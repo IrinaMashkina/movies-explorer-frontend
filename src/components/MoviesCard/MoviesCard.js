@@ -13,7 +13,7 @@ function MoviesCard(card) {
           <h3 className="movies-card__title">{card.title}</h3>
          
             <button
-              aria-label="Кнопка 'нравится'."
+              aria-label="Кнопка"
               type="button"
               className={card.className}
             ></button>

@@ -8,7 +8,7 @@ function Movies() {
   return (
     <main className="movies">
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList className="movies-card__like-button" activeClassName="movies-card__like-button_active"/>
       <ButtonMore />
     </main>
   );
