@@ -8,11 +8,13 @@
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid #e8e8e8;
+  transition: border-bottom 0.2s ease-in-out;
   padding-bottom: 13px;
   padding-top: 70px;
 }
 
 .search-form__input {
+  width: 100%;
   background-color: white;
   font-family: inherit;
   font-style: normal;
@@ -31,6 +33,11 @@
 
 .search-form__input:focus {
   outline: none;
+
+}
+
+.searh-form__container:focus-within {
+  border-bottom: 1px solid #2be080;
 }
 
 .search-form__submit {
