@@ -1,0 +1,17 @@
+.movies {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding: 0 50px;
+}
+
+@media screen and (max-width: 1000px) {
+  .movies {
+    padding: 0 30px;
+  }
+}
+
+@media screen and  (max-width: 600px) {
+  .movies {
+    padding: 0 10px;
+  }
+}
