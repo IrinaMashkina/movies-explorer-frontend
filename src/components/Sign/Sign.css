@@ -50,6 +50,12 @@ opacity: 0.8;
   transition: background-color ease-in-out 0.2s;
 }
 
+.form__button-submit_disabled {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.8;
+}
+
 .form__button-submit:hover {
   background-color:  #1b35ac;
   cursor: pointer;
