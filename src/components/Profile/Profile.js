@@ -12,11 +12,10 @@ setInputValues({
   name: currentUser.name,
   email: currentUser.email,
 })
-}, [])
+}, [currentUser.email, currentUser.name, setInputValues])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValues);
     props.updateUserInfo(inputValues);
   };
 
@@ -28,7 +27,7 @@ setInputValues({
         onSubmit={handleSubmit}
       >
         <div className="profile__info">
-          <h2 className="profile__title">Привет, {props.name}</h2>
+          <h2 className="profile__title">Привет, {currentUser.name}</h2>
 
           <section className="profile__form">
             <div className="profile__info-container">
@@ -43,7 +42,7 @@ setInputValues({
                 value={inputValues.name || ""}
                 onChange={handleInputChange}
                 className="profile__input"
-                placeholder={props.name}
+                placeholder={currentUser.name}
                 autoComplete="off"
               />
               <span className="profile__span-error">{errorMessages.name}</span>
@@ -62,7 +61,7 @@ setInputValues({
                 value={inputValues.email || "" }
                 onChange={handleInputChange}
                 className="profile__input"
-                placeholder={props.email}
+                placeholder={currentUser.email}
                 autoComplete="off"
               />
                <span className="profile__span-error">{errorMessages.name}</span>

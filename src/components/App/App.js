@@ -182,8 +182,6 @@ function App() {
             path="/profile"
             component={Profile}
             updateUserInfo={updateUserInfo}
-            name={currentUser.name}
-            email={currentUser.email}
           ></ProtectedRoute>
 
           <Route exact path="/">
