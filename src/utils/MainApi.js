@@ -58,6 +58,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: {
+        "Access-Control-Allow-Credentials": true,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -80,23 +81,21 @@ class Api {
     }).then(this.handleResponse);
   }
 
-
-//   changeLikeCardStatus(id, isLiked) {
-//     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-//       method: isLiked ? "PUT" : "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${localStorage.getItem("jwt")}`,
-//       },
-//     }).then(this.handleResponse);
-//   }
-
+  //   changeLikeCardStatus(id, isLiked) {
+  //     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+  //       method: isLiked ? "PUT" : "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         authorization: `Bearer ${localStorage.getItem("jwt")}`,
+  //       },
+  //     }).then(this.handleResponse);
+  //   }
 }
 
 // создать экземпляр Api
 const mainApi = new Api({
-  baseUrl: "https://api.movies-exp.nomoredomains.monster",
-  // baseUrl: "http://localhost:5000",
+  // baseUrl: "https://api.movies-exp.nomoredomains.monster",
+  baseUrl: "http://localhost:5000",
 });
 
 export default mainApi;

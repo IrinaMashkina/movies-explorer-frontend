@@ -30,7 +30,7 @@
 }
 
 
-.profile__grid-container {
+.profile__form {
 
   display: grid;
   grid-template-columns: 1fr;
@@ -43,8 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-style: normal;
-  
+  font-style: normal; 
   font-size: 11px;
   line-height: 13px;
   padding-bottom: 16px;
@@ -55,11 +54,47 @@
   padding: 0;
   margin: 0;
 }
-.profile__info-text {
-    font-weight: normal;
-  padding: 0;
+.profile__input {
   margin: 0;
+  padding: 0;
+  border: none;
+  text-align: right;
+  font-weight: normal;
+  color: #000;
+
 }
+
+.profile__input::placeholder {
+  color: #000;
+  font-style: normal; 
+  font-size: 11px;
+  line-height: 13px;
+}
+input:focus::-webkit-input-placeholder {
+  color: #B1B1B1;
+}
+
+.profile__input:focus {
+  outline: none;
+}
+
+.profile__info-container:focus-within {
+  border-bottom: 1px solid #2be080;
+}
+.profile__span-error {
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ff3055;
+  position: relative;
+  left: 0;
+  top: calc(100% + 6px);
+  opacity: 0;
+}
+
+
 .profile__buttons {
   display: grid;
   gap: 16px;
@@ -76,6 +111,13 @@
   background-color: inherit;
   transition: color ease-in-out 0.2s;
 }
+
+.profile__button-edit_disabled {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.8;
+}
+
 .profile__button-exit {
   padding: 0;
   margin: 0 auto;

@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 function PopupMenu(props) {
+
+
   return (
     <section
       className={`popup-menu ${props.isOpen ? "popup-menu_opened" : ""}`}
@@ -12,6 +14,7 @@ function PopupMenu(props) {
           type="button"
           className="popup-menu__close"
         ></button>
+
         <ul className="popup-menu__list">
           <ul className="popup-menu__list_nav">
             <li className="popup-menu__item">
@@ -20,6 +23,7 @@ function PopupMenu(props) {
                 className="popup-menu__link"
                 exact
                 to="/"
+                onClick={props.toggleMenu}
               >
                 Главная
               </NavLink>
@@ -30,6 +34,7 @@ function PopupMenu(props) {
                 activeClassName="popup-menu__link_active"
                 className="popup-menu__link"
                 to="/movies"
+                onClick={props.toggleMenu}
               >
                 Фильмы
               </NavLink>
@@ -40,6 +45,7 @@ function PopupMenu(props) {
                 activeClassName="popup-menu__link_active"
                 className="popup-menu__link"
                 to="/saved-movies"
+                onClick={props.toggleMenu}
               >
                 Сохранённые фильмы
               </NavLink>
@@ -51,6 +57,7 @@ function PopupMenu(props) {
               activeClassName="popup-menu__link_active"
               className="popup-menu__link popup-menu__link_place_profile"
               to="/profile"
+              onClick={props.toggleMenu}
             >
               Аккаунт
             </NavLink>

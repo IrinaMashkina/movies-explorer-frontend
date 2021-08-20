@@ -6,7 +6,6 @@ function useFormValidator() {
   const [isValid, setIsValid] = useState(false);
 
   function handleInputChange(e) {
-console.log(e.target.closest(".forms").checkValidity())
     setInputValues({
       ...inputValues,
       [e.target.name]: e.target.value,
@@ -28,7 +27,7 @@ console.log(e.target.closest(".forms").checkValidity())
     [setInputValues, setErrorMessages, setIsValid]
   )
 
-  return { inputValues, errorMessages, isValid, handleInputChange, resetForm };
+  return {setInputValues, inputValues, errorMessages, isValid, handleInputChange, resetForm };
 
 }
 

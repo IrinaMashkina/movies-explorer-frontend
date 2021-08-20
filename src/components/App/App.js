@@ -14,8 +14,8 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute";
 
 import auth from "../../utils/Auth";
-// import mainApi from "../../utils/MainApi";
-// import moviesApi from "../../utils/MoviesApi";
+import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -23,8 +23,68 @@ function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = React.useState({});
 
+  const [allMovies, setAllMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
+
+  const [serverError, setServerError] = React.useState("");
+
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
+  const [isLoadingUserInfo, setIsLoadingUserInfo] = React.useState(false);
+  // const [isLoadingAddNewCard, setIsLoadingAddNewCard] = React.useState(false);
+  // const [isLoadingDeleteCard, setIsLoadingDeleteCard] = React.useState(false);
+
+ 
+  const checkToken = React.useCallback(() => {
+    mainApi
+      .getUserInfo()
+      .then((res) => {
+        setLoggedIn(true);
+        setCurrentUser(res);
+        history.push("/movies");
+      })
+      .catch(() => {
+        setCurrentUser({});
+        setLoggedIn(false);
+        history.push("/signin");
+      });
+  }, [history]);
+
+  React.useEffect(() => {
+    checkToken();
+  }, [history, checkToken]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      moviesApi
+        .getMovies()
+        .then((res) => {
+          setAllMovies(res);
+          localStorage.setItem("allMovies", JSON.stringify(res));
+        })
+        .catch((err) => {
+          localStorage.removeItem("allMovies");
+          setServerError(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+        });
+
+      mainApi
+        .getSavedMovies()
+        .then((myMovies) => {
+          setSavedMovies(myMovies);
+          localStorage.setItem("savedMovies", JSON.stringify(myMovies));
+        })
+        .catch(() => {
+          localStorage.removeItem("savedMovies");
+          setServerError(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
+        });
+    }
+  }, [loggedIn]);
+
+  // регистрация
 
   function handleRegistration(data) {
     setIsLoadingSignup(true);
@@ -37,19 +97,48 @@ function App() {
       .finally(() => setIsLoadingSignup(false));
   }
 
+  // авторизация
+
   function handleAuthorization(data) {
     setIsLoadingSignin(true);
     auth
       .authorize(data)
       .then((res) => {
-        if (res.token) {
+        if (res) {
           setLoggedIn(true);
+          setCurrentUser(res);
           history.push("/movies");
         }
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoadingSignin(false));
   }
+
+  // логаут
+
+  const handleLogout = () => {
+    auth
+      .logout()
+      .then(() => {
+        setCurrentUser({});
+        setLoggedIn(false);
+        history.push("/signin");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // обновление данных пользователя
+
+  const updateUserInfo = (user) => {
+    setIsLoadingUserInfo(true);
+    mainApi
+      .updateUserInfo(user)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoadingUserInfo(false));
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -77,18 +166,24 @@ function App() {
             loggedIn={loggedIn}
             path="/movies"
             component={Movies}
+            allMovies={allMovies}
           ></ProtectedRoute>
 
           <ProtectedRoute
             loggedIn={loggedIn}
             path="/saved-movies"
             component={SavedMovies}
+            savedMovies={savedMovies}
           ></ProtectedRoute>
 
           <ProtectedRoute
             loggedIn={loggedIn}
+            logout={handleLogout}
             path="/profile"
             component={Profile}
+            updateUserInfo={updateUserInfo}
+            name={currentUser.name}
+            email={currentUser.email}
           ></ProtectedRoute>
 
           <Route exact path="/">
@@ -100,9 +195,8 @@ function App() {
           <Route path="*">
             <NotFound />
           </Route>
-
         </Switch>
-        <Route strict path="/(|movies|saved-movies|profile)">
+        <Route strict path="/(|movies|saved-movies)">
           <Footer loggedIn={loggedIn} />
         </Route>
       </div>
