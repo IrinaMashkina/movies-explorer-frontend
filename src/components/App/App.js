@@ -35,6 +35,7 @@ function App() {
   // const [isLoadingDeleteCard, setIsLoadingDeleteCard] = React.useState(false);
 
  
+  // проверка токена
   const checkToken = React.useCallback(() => {
     mainApi
       .getUserInfo()
@@ -53,6 +54,8 @@ function App() {
   React.useEffect(() => {
     checkToken();
   }, [history, checkToken]);
+
+  // получение списка фильмов при логине
 
   React.useEffect(() => {
     if (loggedIn) {

@@ -3,16 +3,27 @@ import FormValidator from "../../hooks/useFormValidator";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile(props) {
-  const { setInputValues, inputValues, isValid, handleInputChange, errorMessages } = FormValidator({});
+  const {
+    setInputValues,
+    inputValues,
+    isValid,
+    handleInputChange,
+    errorMessages,
+    resetForm
+  } = FormValidator({});
 
   const currentUser = React.useContext(CurrentUserContext);
 
-React.useEffect(() => {
-setInputValues({
-  name: currentUser.name,
-  email: currentUser.email,
-})
-}, [currentUser.email, currentUser.name, setInputValues])
+  React.useEffect(() => {
+    resetForm();
+  }, [resetForm]); 
+
+  React.useEffect(() => {
+    setInputValues({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
+  }, [currentUser.email, currentUser.name, setInputValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +41,7 @@ setInputValues({
           <h2 className="profile__title">Привет, {currentUser.name}</h2>
 
           <section className="profile__form">
+
             <div className="profile__info-container">
               <label htmlFor="name" className="profile__info-title">
                 Имя
@@ -45,8 +57,18 @@ setInputValues({
                 placeholder={currentUser.name}
                 autoComplete="off"
               />
-              <span className="profile__span-error">{errorMessages.name}</span>
+
             </div>
+
+            <span
+                className={
+                  isValid
+                    ? "profile__span-error"
+                    : "profile__span-error profile__span-error_active"
+                }
+              >
+                {errorMessages.name}
+              </span>
 
             <div className="profile__info-container">
               <label htmlFor="email" className="profile__info-title">
@@ -58,14 +80,23 @@ setInputValues({
                 name="email"
                 minLength="2"
                 maxLength="40"
-                value={inputValues.email || "" }
+                value={inputValues.email || ""}
                 onChange={handleInputChange}
                 className="profile__input"
                 placeholder={currentUser.email}
                 autoComplete="off"
               />
-               <span className="profile__span-error">{errorMessages.name}</span>
+
             </div>
+            <span
+                className={
+                  isValid
+                    ? "profile__span-error"
+                    : "profile__span-error profile__span-error_active"
+                }
+              >
+                {errorMessages.email}
+              </span>
           </section>
         </div>
         <div className="profile__buttons">
