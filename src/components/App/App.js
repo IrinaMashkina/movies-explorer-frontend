@@ -11,7 +11,7 @@ import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
-import ProtectedRoute from "../ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import auth from "../../utils/Auth";
 import mainApi from "../../utils/MainApi";
