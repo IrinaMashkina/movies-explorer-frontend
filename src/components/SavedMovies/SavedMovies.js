@@ -22,6 +22,7 @@ function SavedMovies() {
       <MoviesCardList
         movies={isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies}
        isMyMovies
+       savedMovies
         className="movies-card__delete-button"
       />
     </main>

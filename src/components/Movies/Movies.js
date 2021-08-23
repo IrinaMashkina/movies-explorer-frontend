@@ -3,8 +3,8 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import ButtonMore from "../ButtonMore/ButtonMore";
 
-function Movies() {
-  const allMovies =JSON.parse(localStorage.getItem("allMovies"));
+function Movies(props) {
+  const allMovies = JSON.parse(localStorage.getItem("allMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
@@ -13,19 +13,17 @@ function Movies() {
     setIsChecked(e.target.checked);
   }
 
-  const filteredMoviesByCheckbox = (movies) => movies.filter((movie) => movie.duration < 40);
-    
+  const filteredMoviesByCheckbox = (movies) =>
+    movies.filter((movie) => movie.duration < 40);
 
   const handleSearch = (value) => {
-   setQueryMovies(handleMoviesSearch(allMovies, value))
-    
+    setQueryMovies(handleMoviesSearch(allMovies, value));
   };
 
   const handleMoviesSearch = (movies, searchValue) =>
     movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
     );
-
 
   return (
     <main className="movies">
@@ -39,10 +37,13 @@ function Movies() {
 
       {queryMovies.length !== 0 && (
         <MoviesCardList
-          movies={isChecked ?  filteredMoviesByCheckbox(queryMovies): queryMovies}
+          handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
+          isAddedMovie={props.isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
+          }
           className="movies-card__like-button"
           activeClassName="movies-card__like-button_active"
-          
         />
       )}
 

@@ -34,7 +34,6 @@ function App() {
   // const [isLoadingAddNewCard, setIsLoadingAddNewCard] = React.useState(false);
   // const [isLoadingDeleteCard, setIsLoadingDeleteCard] = React.useState(false);
 
- 
   // проверка токена
   const checkToken = React.useCallback(() => {
     mainApi
@@ -143,8 +142,41 @@ function App() {
       .finally(() => setIsLoadingUserInfo(false));
   };
 
-  // поиск
+  // добавление фильма в savedMovies
+  const addMovie = (movie) => {
+    mainApi
+      .createNewMovie(movie)
+      .then((res) => {
+        setSavedMovies([...savedMovies, res]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  // удаление фильма из сохранённых
+  const deleteMovie = (movieId) => {
+    mainApi
+      .deleteMovie(movieId)
+      .then(() => {
+        const newArr = savedMovies.filter((item) => item.id !== movieId);
+        setSavedMovies(newArr);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // добавленные фильмы в сохранённые
+  const isAddedMovie = (movie) =>
+    savedMovies.some((item) => {
+      console.log(`item: ${item._id}`);
+      console.log(`movie при проверке added: ${movie.id}`);
+      return item._id === movie.id;
+    });
+
+  // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
+  const handleAddOrDeleteMovie = (movie, isAdded) => {
+    !isAdded ? addMovie(movie) : deleteMovie(movie);
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -173,6 +205,8 @@ function App() {
             path="/movies"
             component={Movies}
             allMovies={allMovies}
+            handleAddOrDeleteMovie={handleAddOrDeleteMovie}
+            isAddedMovie={isAddedMovie}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -180,6 +214,7 @@ function App() {
             path="/saved-movies"
             component={SavedMovies}
             savedMovies={savedMovies}
+            deleteMovie={deleteMovie}
           ></ProtectedRoute>
 
           <ProtectedRoute
