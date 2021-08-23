@@ -1,15 +1,19 @@
 import React from "react";
 
 function MoviesCard(props) {
-
-
-  const {nameRu, image, duration, trailer} = props;
   return (
     <figure className="movies-card">
-      <a href={trailer} className="movies-card__link" target="_blank" rel="noopener noreferrer"><img src={image} alt={nameRu} className="movies-card__image" /></a>
+      <a
+        href={props.trailer}
+        className="movies-card__link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={props.image} alt={props.nameRU} className="movies-card__image" />
+      </a>
       <figcaption className="movies-card__caption">
         <div className="movies-card__container">
-          <h3 className="movies-card__title">{nameRu}</h3>
+          <h3 className="movies-card__title">{props.nameRU}</h3>
 
           <button
             aria-label="Кнопка"
@@ -17,7 +21,7 @@ function MoviesCard(props) {
             className={props.className}
           ></button>
         </div>
-        <span className="movies-card__duration">{duration}</span>
+        <span className="movies-card__duration">{props.duration}</span>
       </figcaption>
     </figure>
   );

@@ -9,6 +9,8 @@ function SearchForm(props) {
   );
   const [spanError, setSpanError] = React.useState("");
 
+
+
   React.useEffect(() => {
     resetForm();
   }, [resetForm]);
@@ -17,11 +19,14 @@ function SearchForm(props) {
     e.preventDefault();
     if (isValid) {
       props.onSearch(inputValues.search);
+      props.onFilteredMovie();
     } else {
       setSpanError("Нужно ввести ключевое слово");
       setTimeout(() => setSpanError(""), 1500);
     }
   }
+
+
 
   return (
     <form className="search-form forms" noValidate onSubmit={handleSubmit}>
@@ -49,7 +54,7 @@ function SearchForm(props) {
         </span>
       </div>
 
-      <FilterCheckbox />
+      <FilterCheckbox onChange={props.onCheckboxChange}/>
     </form>
   );
 }

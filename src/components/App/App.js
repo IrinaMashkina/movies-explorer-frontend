@@ -143,6 +143,9 @@ function App() {
       .finally(() => setIsLoadingUserInfo(false));
   };
 
+  // поиск
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
