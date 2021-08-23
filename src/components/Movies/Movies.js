@@ -3,44 +3,46 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import ButtonMore from "../ButtonMore/ButtonMore";
 
-function Movies(props) {
+function Movies() {
+  const allMovies =JSON.parse(localStorage.getItem("allMovies"));
+
+  const [queryMovies, setQueryMovies] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
 
   function handleCheckboxChange(e) {
-    console.log(e.target.checked);
     setIsChecked(e.target.checked);
   }
 
-  const filteredMoviesByCheckbox = (movies) =>
-    movies.filter((movie) => movie.duration < 40);
-
-
-    const handleMoviesSearch = (movies, searchValue) => movies.filter((movie) => movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
-      );
+  const filteredMoviesByCheckbox = (movies) => movies.filter((movie) => movie.duration < 40);
     
-      const filteredMoviesbyQuery = () => {
-        const movies = localStorage.getItem("allMovies");
-        console.log(movies);
-        handleMoviesSearch(movies, )
-      }
+
+  const handleSearch = (value) => {
+   setQueryMovies(handleMoviesSearch(allMovies, value))
+    
+  };
+
+  const handleMoviesSearch = (movies, searchValue) =>
+    movies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
 
   return (
     <main className="movies">
       <SearchForm
-      isChecked={isChecked}
-        onFilteredMovie={filteredMoviesByCheckbox}
-        onSearch={props.onSearch}
+        isChecked={isChecked}
+        onSearch={handleSearch}
         onCheckboxChange={handleCheckboxChange}
       />
 
-      {props.allMovies.length === 0 && <p>Ничего не найдено</p>}
+      {queryMovies.length === 0 && <p>Ничего не найдено</p>}
 
-      {props.allMovies.length !== 0 && (
+      {queryMovies.length !== 0 && (
         <MoviesCardList
-          movies={props.movies}
+          movies={isChecked ?  filteredMoviesByCheckbox(queryMovies): queryMovies}
           className="movies-card__like-button"
           activeClassName="movies-card__like-button_active"
+          
         />
       )}
 

@@ -19,7 +19,7 @@ function SearchForm(props) {
     e.preventDefault();
     if (isValid) {
       props.onSearch(inputValues.search);
-      props.onFilteredMovie();
+ 
     } else {
       setSpanError("Нужно ввести ключевое слово");
       setTimeout(() => setSpanError(""), 1500);
