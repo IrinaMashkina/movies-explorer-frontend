@@ -42,34 +42,34 @@ function MoviesCardList({
     }
   };
 
-  const handleResize = () => {
+  const handleResize = React.useCallback(() => {
     const windowSize = window.innerWidth;
-    console.log(`windowSize: ${windowSize}`);
-    setMoreMovies(countMore(windowSize));
-    console.log(`moreMovies: ${moreMovies}`)
-  };
+    setMoreMovies(countMovies(windowSize));
+    const count = Math.min(movies.length, countMovies(windowSize));
+    setMoviesToRender(movies.slice(0, count));
+    setCurrentCountMovies(count);
+  },[movies]);
+
+  // меняем количество отображающихся фильмов в зависимости от меняющегося размера экрана
+  React.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  }, [handleResize]);
+  
 
   const renderMore = () => {
     const count = Math.min(movies.length, currentCountMovies + moreMovies);
     const extraMovies = movies.slice(currentCountMovies, count);
     setMoviesToRender([...moviesToRender, ...extraMovies]);
     setCurrentCountMovies(count);
-    console.log(`renderMore сработала`);
   };
-
-    window.addEventListener("resize", handleResize);
-  
 
   React.useEffect(() => {
     const windowSize = window.innerWidth;
     setMoreMovies(countMore(windowSize));
     const count = Math.min(movies.length, countMovies(windowSize));
-    console.log(count);
     setMoviesToRender(movies.slice(0, count));
     setCurrentCountMovies(count);
   }, [movies]);
-
-  const renderMoreMovies = () => renderMore();
 
   return (
     <>
@@ -108,7 +108,9 @@ function MoviesCardList({
           })}
       </ul>
 
-     {currentCountMovies < movies.length && <ButtonMore onClick={renderMoreMovies} />}
+      {currentCountMovies < movies.length && (
+        <ButtonMore onClick={renderMore} />
+      )}
     </>
   );
 }
