@@ -2,7 +2,7 @@ import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function SavedMovies() {
+function SavedMovies({ deleteMovie, isAddedMovie }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
 
   const [isChecked, setIsChecked] = React.useState(false);
@@ -14,15 +14,15 @@ function SavedMovies() {
   const filteredMoviesByCheckbox = (movies) =>
     movies.filter((movie) => movie.duration < 40);
 
-
-
   return (
     <main className="movies">
       <SearchForm onCheckboxChange={handleCheckboxChange} />
       <MoviesCardList
+      isAddedMovie={isAddedMovie}
         movies={isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies}
-       isMyMovies
-       savedMovies
+        deleteMovie={deleteMovie}
+        isMyMovies
+        savedMovies
         className="movies-card__delete-button"
       />
     </main>

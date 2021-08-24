@@ -28,6 +28,8 @@ function App() {
 
   const [serverError, setServerError] = React.useState("");
 
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
   const [isLoadingUserInfo, setIsLoadingUserInfo] = React.useState(false);
@@ -58,6 +60,7 @@ function App() {
 
   React.useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       moviesApi
         .getMovies()
         .then((res) => {
@@ -69,7 +72,7 @@ function App() {
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-        });
+        }).finally(() => setIsLoading(false));
 
       mainApi
         .getSavedMovies()
@@ -82,7 +85,7 @@ function App() {
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-        });
+        }).finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -119,6 +122,7 @@ function App() {
   // логаут
 
   const handleLogout = () => {
+    setIsLoading(true);
     auth
       .logout()
       .then(() => {
@@ -126,24 +130,25 @@ function App() {
         setLoggedIn(false);
         history.push("/signin");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)).finally(() => setIsLoading(false));
   };
 
   // обновление данных пользователя
 
   const updateUserInfo = (user) => {
-    setIsLoadingUserInfo(true);
+    setIsLoading(true);
     mainApi
       .updateUserInfo(user)
       .then((res) => {
         setCurrentUser(res);
       })
       .catch((err) => console.log(err))
-      .finally(() => setIsLoadingUserInfo(false));
+      .finally(() => setIsLoading(false));
   };
 
   // добавление фильма в savedMovies
   const addMovie = (movie) => {
+    setIsLoading(true);
     mainApi
       .createNewMovie(movie)
       .then((res) => {
@@ -151,27 +156,28 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      }).finally(() => setIsLoading(false));
   };
 
   // удаление фильма из сохранённых
-  const deleteMovie = (movieId) => {
+  const deleteMovie = (movie) => {
+    const movieId =  savedMovies.find((item) => item.id === movie._id)._id;
+    setIsLoading(true);
     mainApi
       .deleteMovie(movieId)
       .then(() => {
-        const newArr = savedMovies.filter((item) => item.id !== movieId);
+        const newArr = savedMovies.filter((item) =>{
+          console.log(`item: ${Object.keys(item)}`);
+          console.log(movieId);
+          return item._id !== movieId});
         setSavedMovies(newArr);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)).finally(() => setIsLoading(false));
   };
 
-  // добавленные фильмы в сохранённые
+  // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) =>
-    savedMovies.some((item) => {
-      console.log(`item: ${item._id}`);
-      console.log(`movie при проверке added: ${movie.id}`);
-      return item._id === movie.id;
-    });
+    savedMovies.some((item) => item.movieId === movie.id);
 
   // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
   const handleAddOrDeleteMovie = (movie, isAdded) => {
@@ -207,6 +213,7 @@ function App() {
             allMovies={allMovies}
             handleAddOrDeleteMovie={handleAddOrDeleteMovie}
             isAddedMovie={isAddedMovie}
+            isLoading={isLoading}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -215,6 +222,8 @@ function App() {
             component={SavedMovies}
             savedMovies={savedMovies}
             deleteMovie={deleteMovie}
+            isAddedMovie={isAddedMovie}
+            isLoading={isLoading}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -223,6 +232,7 @@ function App() {
             path="/profile"
             component={Profile}
             updateUserInfo={updateUserInfo}
+            isLoading={isLoading}
           ></ProtectedRoute>
 
           <Route exact path="/">

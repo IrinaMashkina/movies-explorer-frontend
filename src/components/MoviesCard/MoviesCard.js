@@ -1,17 +1,16 @@
 import React from "react";
 
-function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, trailer, image, nameRU, className, savedMovies, duration}) {
+function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, trailer, image, nameRU, className, activeClassName, savedMovies, duration}) {
+
+  const isAdded = isAddedMovie(movie);
 
 function handleLikeClick() {
-  const isAdded = isAddedMovie(movie);
-  console.log(`movie при лайке: ${movie}`);
-  console.log(`isAdded: ${isAdded}`);
+
   handleClick(movie, isAdded);
 }
 
 function handleDeleteClick() {
-  console.log(movieId)
-  onDelete(movieId)
+  onDelete(movie._id)
 }
 
   return (
@@ -31,7 +30,7 @@ function handleDeleteClick() {
           <button
             aria-label="Кнопка"
             type="button"
-            className={className}
+            className={isAdded ? activeClassName : className}
             onClick={savedMovies ? handleDeleteClick : handleLikeClick}
           ></button>
         </div>

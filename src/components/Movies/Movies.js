@@ -2,11 +2,13 @@ import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import ButtonMore from "../ButtonMore/ButtonMore";
+import Preloader from "../Preloader/Preloader";
 
 function Movies(props) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
+  const [isQueryMovies, setIsQueryMovies] =React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
 
   function handleCheckboxChange(e) {
@@ -18,6 +20,7 @@ function Movies(props) {
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(allMovies, value));
+    setIsQueryMovies(true);
   };
 
   const handleMoviesSearch = (movies, searchValue) =>
@@ -32,8 +35,9 @@ function Movies(props) {
         onSearch={handleSearch}
         onCheckboxChange={handleCheckboxChange}
       />
+      {props.isLoading && <Preloader />}
 
-      {queryMovies.length === 0 && <p>Ничего не найдено</p>}
+      {(isQueryMovies && queryMovies.length === 0) && <p>Ничего не найдено</p>}
 
       {queryMovies.length !== 0 && (
         <MoviesCardList

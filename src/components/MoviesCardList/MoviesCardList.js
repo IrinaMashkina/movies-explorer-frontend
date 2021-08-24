@@ -6,10 +6,12 @@ import { base_URL } from "../../constants/constants";
 function MoviesCardList({
   movies,
   className,
+  activeClassName,
   isMyMovies,
   savedMovies,
   handleAddOrDeleteMovie,
   isAddedMovie,
+  deleteMovie
 }) {
   return (
     <ul className="movies__cardlist">
@@ -22,6 +24,7 @@ function MoviesCardList({
               movie={movie}
               key={isMyMovies ? movie._id : movie.id}
               className={className}
+              activeClassName={activeClassName}
               country={movie.country}
               director={movie.director}
               duration={movie.duration}
@@ -40,6 +43,7 @@ function MoviesCardList({
               handleClick={handleAddOrDeleteMovie}
               isAddedMovie={isAddedMovie}
               savedMovies={savedMovies}
+              onDelete={deleteMovie}
             />
           );
         })}
