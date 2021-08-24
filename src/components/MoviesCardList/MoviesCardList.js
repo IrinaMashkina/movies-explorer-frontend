@@ -44,7 +44,7 @@ function MoviesCardList({
 
   const handleResize = React.useCallback(() => {
     const windowSize = window.innerWidth;
-    setMoreMovies(countMovies(windowSize));
+    setMoreMovies(countMore(windowSize));
     const count = Math.min(movies.length, countMovies(windowSize));
     setMoviesToRender(movies.slice(0, count));
     setCurrentCountMovies(count);
