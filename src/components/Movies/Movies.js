@@ -1,7 +1,7 @@
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import ButtonMore from "../ButtonMore/ButtonMore";
+
 import Preloader from "../Preloader/Preloader";
 
 function Movies(props) {
@@ -50,8 +50,6 @@ function Movies(props) {
           activeClassName="movies-card__like-button_active"
         />
       )}
-
-      <ButtonMore />
     </main>
   );
 }
