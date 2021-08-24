@@ -72,7 +72,8 @@ function App() {
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-        }).finally(() => setIsLoading(false));
+        })
+        .finally(() => setIsLoading(false));
 
       mainApi
         .getSavedMovies()
@@ -85,7 +86,8 @@ function App() {
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
-        }).finally(() => setIsLoading(false));
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [loggedIn]);
 
@@ -95,8 +97,10 @@ function App() {
     setIsLoadingSignup(true);
     auth
       .register(data)
-      .then((data) => {
-        history.push("/signin");
+      .then((res) => {
+        if (data) {
+          handleAuthorization(data)
+        }
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoadingSignup(false));
@@ -130,7 +134,8 @@ function App() {
         setLoggedIn(false);
         history.push("/signin");
       })
-      .catch((err) => console.log(err)).finally(() => setIsLoading(false));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   // обновление данных пользователя
@@ -156,23 +161,26 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   };
 
   // удаление фильма из сохранённых
   const deleteMovie = (movie) => {
-    const movieId =  savedMovies.find((item) => item.id === movie._id)._id;
+    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
     setIsLoading(true);
     mainApi
       .deleteMovie(movieId)
       .then(() => {
-        const newArr = savedMovies.filter((item) =>{
+        const newArr = savedMovies.filter((item) => {
           console.log(`item: ${Object.keys(item)}`);
           console.log(movieId);
-          return item._id !== movieId});
+          return item._id !== movieId;
+        });
         setSavedMovies(newArr);
       })
-      .catch((err) => console.log(err)).finally(() => setIsLoading(false));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   // добавлен ли  фильм в сохранённые

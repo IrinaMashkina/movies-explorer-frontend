@@ -20,6 +20,7 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
       <SearchForm onCheckboxChange={handleCheckboxChange} />
 
       {isLoading && <Preloader />}
+      
 
       {!isLoading && (
         <MoviesCardList

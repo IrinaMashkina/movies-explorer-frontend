@@ -53,6 +53,9 @@ function MoviesCardList({
   // меняем количество отображающихся фильмов в зависимости от меняющегося размера экрана
   React.useEffect(() => {
     window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [handleResize]);
   
 
@@ -108,7 +111,7 @@ function MoviesCardList({
           })}
       </ul>
 
-      {currentCountMovies < movies.length && (
+      {movies && currentCountMovies < movies.length && (
         <ButtonMore onClick={renderMore} />
       )}
     </>
