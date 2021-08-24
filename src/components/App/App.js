@@ -98,8 +98,8 @@ function App() {
     auth
       .register(data)
       .then((res) => {
-        if (data) {
-          handleAuthorization(data)
+        if (res) {
+          handleAuthorization(data);
         }
       })
       .catch((err) => console.log(err))
@@ -132,7 +132,7 @@ function App() {
       .then(() => {
         setCurrentUser({});
         setLoggedIn(false);
-        history.push("/signin");
+        history.push("/");
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
