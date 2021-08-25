@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
-function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
+function SavedMovies({ deleteMovie, isAddedMovie, isLoading, setSavedMovies }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
@@ -13,6 +13,7 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
   function handleCheckboxChange(e) {
     setIsChecked(e.target.checked);
   }
+
 
   const filteredMoviesByCheckbox = (movies) =>
     movies.filter((movie) => movie.duration < 40);

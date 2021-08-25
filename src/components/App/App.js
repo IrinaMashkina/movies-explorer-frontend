@@ -151,6 +151,19 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  // React.useEffect(() => {
+  //   const dataMovies = JSON.parse(localStorage.getItem('allMovies'));
+  //   const dataSaved = JSON.parse(localStorage.getItem('savedMovies'));
+  //   if (dataMovies) {
+  //     setAllMovies(dataMovies);
+  //   }
+  //   if (dataSaved) {
+  //     setSavedMovies(dataSaved);
+
+  //   }
+      
+  // }, []);
+
   // добавление фильма в savedMovies
   const addMovie = (movie) => {
     setIsLoading(true);
@@ -241,6 +254,7 @@ function App() {
             deleteMovie={deleteMovie}
             isAddedMovie={isAddedMovie}
             isLoading={isLoading}
+
           ></ProtectedRoute>
 
           <ProtectedRoute
