@@ -42,7 +42,7 @@ function Login({onAuthotization, isLoading}) {
           <input
             id="email"
             className={
-              isValid
+              !errorMessages.email
                 ? "login-form__input"
                 : "login-form__input login-form__input_type_error"
             }
@@ -56,7 +56,7 @@ function Login({onAuthotization, isLoading}) {
           ></input>
           <span
             className={
-              isValid
+              !errorMessages.email
                 ? "login-form__span-error"
                 : "login-form__span-error login-form__span-error_active"
             }
@@ -64,6 +64,8 @@ function Login({onAuthotization, isLoading}) {
             {errorMessages.email}
           </span>
         </section>
+
+
         <section className="login-form__section">
           <label htmlFor="password" className="login-form__label">
             Пароль
@@ -78,14 +80,14 @@ function Login({onAuthotization, isLoading}) {
             value={inputValues.password ? inputValues.password : ""}
             onChange={handleInputChange}
             className={
-              isValid
+              !errorMessages.password
                 ? "login-form__input"
                 : "login-form__input login-form__input_type_error"
             }
           ></input>
           <span
             className={
-              isValid
+             !errorMessages.password
                 ? "login-form__span-error"
                 : "login-form__span-error login-form__span-error_active"
             }

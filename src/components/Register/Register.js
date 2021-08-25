@@ -43,7 +43,7 @@ function Register({ onRegistration, isLoading }) {
           <input
             id="name"
             className={
-              isValid
+              !errorMessages.name
                 ? "register-form__input"
                 : "register-form__input register-form__input_type_error"
             }
@@ -58,7 +58,7 @@ function Register({ onRegistration, isLoading }) {
 
           <span
             className={
-              isValid
+              !errorMessages.name
                 ? "register-form__span-error"
                 : "register-form__span-error register-form__span-error_active"
             }
@@ -81,7 +81,7 @@ function Register({ onRegistration, isLoading }) {
             maxLength="40"
             value={inputValues.email ? inputValues.email : ""}
             className={
-              isValid
+              !errorMessages.email
                 ? "register-form__input"
                 : "register-form__input register-form__input_type_error"
             }
@@ -90,7 +90,7 @@ function Register({ onRegistration, isLoading }) {
 
           <span
             className={
-              isValid
+              !errorMessages.email
                 ? "register-form__span-error"
                 : "register-form__span-error register-form__span-error_active"
             }
@@ -108,7 +108,7 @@ function Register({ onRegistration, isLoading }) {
             type="password"
             id="password"
             className={
-              isValid
+              !errorMessages.password
                 ? "register-form__input"
                 : "register-form__input register-form__input_type_error"
             }
@@ -122,7 +122,7 @@ function Register({ onRegistration, isLoading }) {
 
           <span
             className={
-              isValid
+              !errorMessages.password
                 ? "register-form__span-error"
                 : "register-form__span-error register-form__span-error_active"
             }

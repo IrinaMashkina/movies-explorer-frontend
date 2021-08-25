@@ -68,7 +68,6 @@ function MoviesCardList({
 
   React.useEffect(() => {
     if (!movies.message) {
-      console.log(movies)
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
       const count = Math.min(movies.length, countMovies(windowSize));

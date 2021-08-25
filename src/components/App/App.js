@@ -159,8 +159,10 @@ function App() {
       .then((res) => {
         if (!savedMovies.message) {
           setSavedMovies([...savedMovies, res]);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
         } else {
-          setSavedMovies(res)
+          setSavedMovies(res);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
         }
 
       })
@@ -177,12 +179,10 @@ function App() {
     mainApi
       .deleteMovie(movieId)
       .then(() => {
-        const newArr = savedMovies.filter((item) => {
-          console.log(`item: ${Object.keys(item)}`);
-          console.log(movieId);
-          return item._id !== movieId;
-        });
+        const newArr = savedMovies.filter((item) => item._id !== movieId);
         setSavedMovies(newArr);
+        localStorage.setItem("savedMovies", JSON.stringify(newArr));
+        
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
