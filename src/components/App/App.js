@@ -157,7 +157,12 @@ function App() {
     mainApi
       .createNewMovie(movie)
       .then((res) => {
-        setSavedMovies([...savedMovies, res]);
+        if (!savedMovies.message) {
+          setSavedMovies([...savedMovies, res]);
+        } else {
+          setSavedMovies(res)
+        }
+
       })
       .catch((err) => {
         console.log(err);
@@ -184,8 +189,12 @@ function App() {
   };
 
   // добавлен ли  фильм в сохранённые
-  const isAddedMovie = (movie) =>
-    savedMovies.some((item) => item.movieId === movie.id);
+  const isAddedMovie = (movie) => {
+    if (!savedMovies.message) {
+      return savedMovies.some((item) => item.movieId === movie.id);
+    }
+  }
+
 
   // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
   const handleAddOrDeleteMovie = (movie, isAdded) => {

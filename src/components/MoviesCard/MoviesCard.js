@@ -5,7 +5,6 @@ function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, traile
   const isAdded = isAddedMovie(movie);
 
 function handleLikeClick() {
-
   handleClick(movie, isAdded);
 }
 
