@@ -6,6 +6,8 @@ import Preloader from "../Preloader/Preloader";
 function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
 
+  const [queryMovies, setQueryMovies] = React.useState([]);
+  const [isQueryMovies, setIsQueryMovies] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
 
   function handleCheckboxChange(e) {
@@ -13,14 +15,25 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
   }
 
   const filteredMoviesByCheckbox = (movies) =>
-    movies.filter((movie) => movie.duration < 40);
+    savedMovies.filter((movie) => movie.duration < 40);
+
+  const handleSearch = (value) => {
+    setQueryMovies(handleMoviesSearch(savedMovies, value));
+    setIsQueryMovies(true);
+  };
+
+  const handleMoviesSearch = (movies, searchValue) =>
+    movies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
 
   return (
     <main className="movies">
       <SearchForm onCheckboxChange={handleCheckboxChange} />
 
       {isLoading && <Preloader />}
-      
+
 
       {!isLoading && (
         <MoviesCardList

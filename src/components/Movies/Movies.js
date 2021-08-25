@@ -8,7 +8,7 @@ function Movies(props) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
-  const [isQueryMovies, setIsQueryMovies] =React.useState(false);
+  const [isQueryMovies, setIsQueryMovies] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
 
   function handleCheckboxChange(e) {

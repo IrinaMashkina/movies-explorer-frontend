@@ -13,6 +13,11 @@
   justify-content: center;
 }
 
+.movies__message {
+  margin: auto;
+  text-align: center;
+}
+
 
 @media screen and (max-width: 1000px) {
   .movies__cardlist {
