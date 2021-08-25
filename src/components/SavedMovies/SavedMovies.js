@@ -15,7 +15,7 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
   }
 
   const filteredMoviesByCheckbox = (movies) =>
-    savedMovies.filter((movie) => movie.duration < 40);
+    movies.filter((movie) => movie.duration < 40);
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(savedMovies, value));
@@ -30,16 +30,31 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading }) {
 
   return (
     <main className="movies">
-      <SearchForm onCheckboxChange={handleCheckboxChange} />
+      <SearchForm onCheckboxChange={handleCheckboxChange} onSearch={handleSearch}/>
 
       {isLoading && <Preloader />}
 
+      {(isQueryMovies && queryMovies.length === 0) && <p>Ничего не найдено</p>}
 
-      {!isLoading && (
+      {!isLoading && !isQueryMovies && (
         <MoviesCardList
           isAddedMovie={isAddedMovie}
           movies={
             isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies
+          }
+          deleteMovie={deleteMovie}
+          isMyMovies
+          savedMovies
+          className="movies-card__delete-button"
+        />
+      )}
+
+
+{!isLoading && isQueryMovies && (
+        <MoviesCardList
+          isAddedMovie={isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
           }
           deleteMovie={deleteMovie}
           isMyMovies
