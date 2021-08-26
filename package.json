@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "deploy": "npm run build && scp -r ./build/* irinamashkina@84.201.176.82:/home/irinamashkina/movies-frontend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

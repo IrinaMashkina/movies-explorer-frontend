@@ -2,10 +2,11 @@ import React from "react";
 
 function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, trailer, image, nameRU, className, activeClassName, savedMovies, duration}) {
 
-  const isAdded = isAddedMovie(movie);
+const isAdded = isAddedMovie(movie);
 
 function handleLikeClick() {
   handleClick(movie, isAdded);
+
 }
 
 function handleDeleteClick() {

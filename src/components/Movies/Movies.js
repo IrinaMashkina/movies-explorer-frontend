@@ -37,9 +37,9 @@ function Movies(props) {
       />
       {props.isLoading && <Preloader />}
 
-      {(isQueryMovies && queryMovies.length === 0) && <p>Ничего не найдено</p>}
+      {isQueryMovies && queryMovies.length === 0 && <p>Ничего не найдено</p>}
 
-      {queryMovies.length !== 0 && (
+      {isQueryMovies && queryMovies.length !== 0 && (
         <MoviesCardList
           handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
           isAddedMovie={props.isAddedMovie}

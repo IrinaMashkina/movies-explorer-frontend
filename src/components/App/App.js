@@ -32,13 +32,45 @@ function App() {
 
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
-  const [isLoadingUserInfo, setIsLoadingUserInfo] = React.useState(false);
-  // const [isLoadingAddNewCard, setIsLoadingAddNewCard] = React.useState(false);
-  // const [isLoadingDeleteCard, setIsLoadingDeleteCard] = React.useState(false);
+  
+ 
+  // // проверка токена
+  // const checkToken = React.useCallback(() => {
+    
+  // }, [history]);
 
-  // проверка токена
-  const checkToken = React.useCallback(() => {
-    mainApi
+  // React.useEffect(() => {
+  //   checkToken();
+  // }, [history, checkToken]);
+
+  const сheckToken = React.useCallback(() => {
+    const token = localStorage.getItem("jwt");
+    auth
+      .checkToken(token)
+      .then((data) => {
+     setCurrentUser(data)
+        setLoggedIn(true);
+        history.push("/movies");
+      })
+      .catch((err) => console.log(err));
+  }, [history]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      сheckToken();
+    }
+  }, [сheckToken]);
+
+
+
+  // получение списка фильмов и инфо при логине
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      setIsLoading(true);
+
+      mainApi
       .getUserInfo()
       .then((res) => {
         setLoggedIn(true);
@@ -49,18 +81,8 @@ function App() {
         setCurrentUser({});
         setLoggedIn(false);
         history.push("/signin");
-      });
-  }, [history]);
+      }).finally(() => setIsLoading(false));
 
-  React.useEffect(() => {
-    checkToken();
-  }, [history, checkToken]);
-
-  // получение списка фильмов при логине
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      setIsLoading(true);
       moviesApi
         .getMovies()
         .then((res) => {
@@ -89,7 +111,7 @@ function App() {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [loggedIn]);
+  }, [loggedIn, history]);
 
   // регистрация
 
@@ -113,7 +135,8 @@ function App() {
     auth
       .authorize(data)
       .then((res) => {
-        if (res) {
+        if (res.token) {
+          localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           setCurrentUser(res);
           history.push("/movies");
@@ -126,16 +149,9 @@ function App() {
   // логаут
 
   const handleLogout = () => {
-    setIsLoading(true);
-    auth
-      .logout()
-      .then(() => {
-        setCurrentUser({});
-        setLoggedIn(false);
-        history.push("/");
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+    setLoggedIn(false);
+    localStorage.removeItem("jwt");
+    history.push("/");
   };
 
   // обновление данных пользователя
@@ -151,18 +167,6 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  // React.useEffect(() => {
-  //   const dataMovies = JSON.parse(localStorage.getItem('allMovies'));
-  //   const dataSaved = JSON.parse(localStorage.getItem('savedMovies'));
-  //   if (dataMovies) {
-  //     setAllMovies(dataMovies);
-  //   }
-  //   if (dataSaved) {
-  //     setSavedMovies(dataSaved);
-
-  //   }
-      
-  // }, []);
 
   // добавление фильма в savedMovies
   const addMovie = (movie) => {
@@ -203,7 +207,7 @@ function App() {
 
   // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) => {
-    if (!savedMovies.message) {
+    if (!savedMovies.message || movie) {
       return savedMovies.some((item) => item.movieId === movie.id);
     }
   }
@@ -217,11 +221,20 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+
         <Route strict path="/(movies|saved-movies|profile)">
           <Header loggedIn={loggedIn} />
         </Route>
 
+        
+
         <Switch>
+        <Route exact path="/">
+            <div className="page">
+              <Main />
+            </div>
+          </Route>
+
           <Route path="/signup">
             <Register
               onRegistration={handleRegistration}
@@ -266,11 +279,7 @@ function App() {
             isLoading={isLoading}
           ></ProtectedRoute>
 
-          <Route exact path="/">
-            <div className="page">
-              <Main />
-            </div>
-          </Route>
+
 
           <Route path="*">
             <NotFound />
