@@ -15,18 +15,28 @@ function Movies(props) {
     setIsChecked(e.target.checked);
   }
 
-  const filteredMoviesByCheckbox = (movies) =>
-    movies.filter((movie) => movie.duration < 40);
+  const filteredMoviesByCheckbox = (movies) => {
+    if (movies) {
+     return  movies.filter((movie) => movie.duration < 40);
+    }
+  }
+ 
+
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(allMovies, value));
     setIsQueryMovies(true);
   };
 
-  const handleMoviesSearch = (movies, searchValue) =>
-    movies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
-    );
+  const handleMoviesSearch = (movies, searchValue) => {
+
+    if (movies) {
+      const newArr = movies.filter((movie) => movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()));
+          return newArr;
+    };
+    }
+  
+
 
   return (
     <main className="movies">
@@ -37,9 +47,9 @@ function Movies(props) {
       />
       {props.isLoading && <Preloader />}
 
-      {isQueryMovies && queryMovies.length === 0 && <p>Ничего не найдено</p>}
+      {isQueryMovies && queryMovies && queryMovies.length === 0 && <p>Ничего не найдено</p>}
 
-      {isQueryMovies && queryMovies.length !== 0 && (
+      {isQueryMovies &&  queryMovies && queryMovies.length !== 0 && (
         <MoviesCardList
           handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
           isAddedMovie={props.isAddedMovie}

@@ -63,11 +63,13 @@ function MoviesCardList({
     const count = Math.min(movies.length, currentCountMovies + moreMovies);
     const extraMovies = movies.slice(currentCountMovies, count);
     setMoviesToRender([...moviesToRender, ...extraMovies]);
+    console.log(moviesToRender);
     setCurrentCountMovies(count);
   };
 
   React.useEffect(() => {
     if (!movies.message) {
+      console.log(movies)
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
       const count = Math.min(movies.length, countMovies(windowSize));
@@ -80,7 +82,7 @@ function MoviesCardList({
   return (
     <>
       <ul className="movies__cardlist">
-        {movies && !movies.message && 
+        {movies && !movies.message && (
           moviesToRender.map((movie) => {
             return (
               <MoviesCard
@@ -111,9 +113,9 @@ function MoviesCardList({
                 onDelete={deleteMovie}
               />
             );
-          })}
+          }))}
 
-{movies.message && <p className="movies__message">{movies.message}</p>}
+{!movies && movies.message && (<p className="movies__message">{movies.message}</p>)}
       </ul>
 
 

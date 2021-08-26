@@ -88,6 +88,7 @@ function App() {
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
+          
         })
         .catch((err) => {
           localStorage.removeItem("allMovies");
@@ -207,7 +208,7 @@ function App() {
 
   // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) => {
-    if (!savedMovies.message || movie) {
+    if (!savedMovies.message && movie) {
       return savedMovies.some((item) => item.movieId === movie.id);
     }
   }
