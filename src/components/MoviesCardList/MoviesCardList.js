@@ -48,16 +48,15 @@ function MoviesCardList({
     const count = Math.min(movies.length, countMovies(windowSize));
     setMoviesToRender(movies.slice(0, count));
     setCurrentCountMovies(count);
-  },[movies]);
+  }, [movies]);
 
   // меняем количество отображающихся фильмов в зависимости от меняющегося размера экрана
   React.useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [handleResize]);
-  
 
   const renderMore = () => {
     const count = Math.min(movies.length, currentCountMovies + moreMovies);
@@ -69,20 +68,20 @@ function MoviesCardList({
 
   React.useEffect(() => {
     if (!movies.message) {
-      console.log(movies)
+      console.log(movies);
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
       const count = Math.min(movies.length, countMovies(windowSize));
       setMoviesToRender(movies.slice(0, count));
       setCurrentCountMovies(count);
     }
-
   }, [movies]);
 
   return (
     <>
       <ul className="movies__cardlist">
-        {movies && !movies.message && (
+        {movies &&
+          !movies.message &&
           moviesToRender.map((movie) => {
             return (
               <MoviesCard
@@ -113,12 +112,12 @@ function MoviesCardList({
                 onDelete={deleteMovie}
               />
             );
-          }))}
+          })}
 
-{!movies && movies.message && (<p className="movies__message">{movies.message}</p>)}
+        {!movies && movies.message && (
+          <p className="movies__message">{movies.message}</p>
+        )}
       </ul>
-
-
 
       {movies && currentCountMovies < movies.length && (
         <ButtonMore onClick={renderMore} />

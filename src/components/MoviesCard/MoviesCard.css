@@ -62,6 +62,10 @@
   background-image: url(../../images/like-active-min.svg);
 }
 
+.movies-card__like-button_active:hover {
+  cursor: pointer;
+}
+
 .movies-card__duration {
   display: block;
   font-style: normal;

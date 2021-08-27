@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
-function SavedMovies({ deleteMovie, isAddedMovie, isLoading, setSavedMovies }) {
+function SavedMovies({  isAddedMovie, deleteMovie,  isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
@@ -38,29 +38,29 @@ function SavedMovies({ deleteMovie, isAddedMovie, isLoading, setSavedMovies }) {
       {(isQueryMovies && queryMovies.length === 0) && <p>Ничего не найдено</p>}
 
       {!isLoading && !isQueryMovies && (
-        <MoviesCardList
-          isAddedMovie={isAddedMovie}
-          movies={
-            isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies
-          }
-          deleteMovie={deleteMovie}
-          isMyMovies
-          savedMovies
-          className="movies-card__delete-button"
+        <MoviesCardList 
+        isAddedMovie={isAddedMovie}
+        movies={
+          isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies
+        }
+        deleteMovie={deleteMovie}
+        isMyMovies
+        savedMovies
+        className="movies-card__delete-button"
         />
       )}
 
 
 {!isLoading && isQueryMovies && (
         <MoviesCardList
-          isAddedMovie={isAddedMovie}
-          movies={
-            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
-          }
-          deleteMovie={deleteMovie}
-          isMyMovies
-          savedMovies
-          className="movies-card__delete-button"
+        isAddedMovie={isAddedMovie}
+        movies={
+          isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
+        }
+        deleteMovie={deleteMovie}
+        isMyMovies
+        savedMovies
+        className="movies-card__delete-button"
         />
       )}
     </main>

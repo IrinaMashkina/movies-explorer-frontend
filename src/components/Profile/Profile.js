@@ -103,7 +103,7 @@ function Profile(props) {
           <button
             type="submit"
             className={
-              !isValid
+              !isValid || inputValues.name.length === 0 || inputValues.email.length === 0
                 ? "profile__button-edit profile__button-edit_disabled"
                 : "profile__button-edit"
             }

@@ -25,6 +25,9 @@ function App() {
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [saveMovies, setSaveMovies] = React.useState([]);
+
+  const [isModalErrorOpen, setIsModalErrorOpen] = React.useState(false);
 
   const [serverError, setServerError] = React.useState("");
 
@@ -32,11 +35,10 @@ function App() {
 
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
-  
- 
+
   // // проверка токена
   // const checkToken = React.useCallback(() => {
-    
+
   // }, [history]);
 
   // React.useEffect(() => {
@@ -48,7 +50,7 @@ function App() {
     auth
       .checkToken(token)
       .then((data) => {
-     setCurrentUser(data)
+        setCurrentUser(data);
         setLoggedIn(true);
         history.push("/movies");
       })
@@ -62,8 +64,6 @@ function App() {
     }
   }, [сheckToken]);
 
-
-
   // получение списка фильмов и инфо при логине
 
   React.useEffect(() => {
@@ -71,24 +71,24 @@ function App() {
       setIsLoading(true);
 
       mainApi
-      .getUserInfo()
-      .then((res) => {
-        setLoggedIn(true);
-        setCurrentUser(res);
-        history.push("/movies");
-      })
-      .catch(() => {
-        setCurrentUser({});
-        setLoggedIn(false);
-        history.push("/signin");
-      }).finally(() => setIsLoading(false));
+        .getUserInfo()
+        .then((res) => {
+          setLoggedIn(true);
+          setCurrentUser(res);
+          history.push("/movies");
+        })
+        .catch(() => {
+          setCurrentUser({});
+          setLoggedIn(false);
+          history.push("/signin");
+        })
+        .finally(() => setIsLoading(false));
 
       moviesApi
         .getMovies()
         .then((res) => {
           setAllMovies(res);
           localStorage.setItem("allMovies", JSON.stringify(res));
-          
         })
         .catch((err) => {
           localStorage.removeItem("allMovies");
@@ -106,6 +106,7 @@ function App() {
         })
         .catch(() => {
           localStorage.removeItem("savedMovies");
+          handleModalErrorOpen();
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
@@ -168,69 +169,74 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+// добавление фильма в savedMovies
+const addMovie = (movie) => {
+  setIsLoading(true);
+  mainApi
+    .createNewMovie(movie)
+    .then((res) => {
+      if (!savedMovies.message) {
+        setSavedMovies([...savedMovies, res]);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+      } else {
+        setSavedMovies(res);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+      }
 
-  // добавление фильма в savedMovies
-  const addMovie = (movie) => {
-    setIsLoading(true);
-    mainApi
-      .createNewMovie(movie)
-      .then((res) => {
-        if (!savedMovies.message) {
-          setSavedMovies([...savedMovies, res]);
-          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-        } else {
-          setSavedMovies(res);
-          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-        }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => setIsLoading(false));
+};
 
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => setIsLoading(false));
-  };
+// удаление фильма из сохранённых
+const deleteMovie = (movie) => {
+  const movieId = savedMovies.find((item) => item.id === movie._id)._id;
+  setIsLoading(true);
+  mainApi
+    .deleteMovie(movieId)
+    .then(() => {
+      const newArr = savedMovies.filter((item) => item._id !== movieId);
+      setSavedMovies(newArr);
+      localStorage.setItem("savedMovies", JSON.stringify(newArr));
+      
+    })
+    .catch((err) => console.log(err))
+    .finally(() => setIsLoading(false));
+};
 
-  // удаление фильма из сохранённых
-  const deleteMovie = (movie) => {
-    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
-    setIsLoading(true);
-    mainApi
-      .deleteMovie(movieId)
-      .then(() => {
-        const newArr = savedMovies.filter((item) => item._id !== movieId);
-        setSavedMovies(newArr);
-        localStorage.setItem("savedMovies", JSON.stringify(newArr));
-        
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
-  };
+// добавлен ли  фильм в сохранённые
+const isAddedMovie = (movie) => {
+  if (!savedMovies.message && movie) {
+    return savedMovies.some((item) => item.movieId === movie.id);
+  }
+}
 
-  // добавлен ли  фильм в сохранённые
-  const isAddedMovie = (movie) => {
-    if (!savedMovies.message && movie) {
-      return savedMovies.some((item) => item.movieId === movie.id);
-    }
+
+// добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
+const handleAddOrDeleteMovie = (movie, isAdded) => {
+  !isAdded ? addMovie(movie) : deleteMovie(movie);
+};
+
+  // открытие и закрытие модального окна
+  function handleModalErrorOpen() {
+    setIsModalErrorOpen(true);
   }
 
-
-  // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
-  const handleAddOrDeleteMovie = (movie, isAdded) => {
-    !isAdded ? addMovie(movie) : deleteMovie(movie);
-  };
+  function closePopup() {
+    setIsModalErrorOpen(false);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-
         <Route strict path="/(movies|saved-movies|profile)">
           <Header loggedIn={loggedIn} />
         </Route>
 
-        
-
         <Switch>
-        <Route exact path="/">
+          <Route exact path="/">
             <div className="page">
               <Main />
             </div>
@@ -251,6 +257,7 @@ function App() {
           </Route>
 
           <ProtectedRoute
+            serverError={serverError}
             loggedIn={loggedIn}
             path="/movies"
             component={Movies}
@@ -258,17 +265,18 @@ function App() {
             handleAddOrDeleteMovie={handleAddOrDeleteMovie}
             isAddedMovie={isAddedMovie}
             isLoading={isLoading}
+            closePopup={closePopup}
+            isModalErrorOpen={isModalErrorOpen}
           ></ProtectedRoute>
 
           <ProtectedRoute
-            loggedIn={loggedIn}
-            path="/saved-movies"
-            component={SavedMovies}
-            savedMovies={savedMovies}
-            deleteMovie={deleteMovie}
-            isAddedMovie={isAddedMovie}
-            isLoading={isLoading}
-
+           loggedIn={loggedIn}
+           path="/saved-movies"
+           component={SavedMovies}
+           savedMovies={savedMovies}
+           deleteMovie={deleteMovie}
+           isAddedMovie={isAddedMovie}
+           isLoading={isLoading}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -279,8 +287,6 @@ function App() {
             updateUserInfo={updateUserInfo}
             isLoading={isLoading}
           ></ProtectedRoute>
-
-
 
           <Route path="*">
             <NotFound />
