@@ -2,7 +2,7 @@ import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Navigation() {
+function Navigation(props) {
   return (
     <nav className="navigation">
       <ul className="navigation__list">
@@ -10,7 +10,7 @@ function Navigation() {
           <li className="navigation__item">
             <NavLink
               activeClassName="navigation__link_active"
-              className="navigation__link"
+              className={props.textColor ? `navigation__link ${props.textColor}` : "navigation__link"}
               to="/movies"
             >
               Фильмы
@@ -19,7 +19,7 @@ function Navigation() {
           <li className="navigation__item">
             <NavLink
               activeClassName="navigation__link_active"
-              className="navigation__link"
+              className={props.textColor ? `navigation__link ${props.textColor}` : "navigation__link"}
               to="/saved-movies"
             >
               Сохранённые фильмы
@@ -30,7 +30,7 @@ function Navigation() {
         <li className="navigation__profile">
           <NavLink
             activeClassName="navigation__link_active"
-            className="navigation__link navigation__link_place_profile"
+            className={props.textColor ? `navigation__link navigation__link_place_profile ${props.textColor}` : "navigation__link navigation__link_place_profile"}
             to="/profile"
           >
             Аккаунт

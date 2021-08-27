@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 import Preloader from "../Preloader/Preloader";
-import ModalError from "../ModalError/ModalError";
+import ModalError from "../InfoTooltip/InfoTooltip";
 
 function Movies(props) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));

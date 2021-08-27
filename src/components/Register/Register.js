@@ -14,6 +14,7 @@ function Register({ onRegistration, isLoading }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegistration(inputValues);
+    resetForm();
   };
 
   const link = (

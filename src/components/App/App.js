@@ -12,6 +12,7 @@ import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 
 import auth from "../../utils/Auth";
 import mainApi from "../../utils/MainApi";
@@ -22,6 +23,10 @@ function App() {
 
   const history = useHistory();
   const [currentUser, setCurrentUser] = React.useState({});
+
+  const [isSuccessSignup, setIsSuccessSignup] = React.useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -106,7 +111,7 @@ function App() {
         })
         .catch(() => {
           localStorage.removeItem("savedMovies");
-          handleModalErrorOpen();
+          // handleModalErrorOpen();
           setServerError(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
@@ -123,10 +128,16 @@ function App() {
       .register(data)
       .then((res) => {
         if (res) {
+          setIsSuccessSignup(true);
+        handleInfoTooltipOpen(true);
           handleAuthorization(data);
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err)
+        setIsSuccessSignup(false);
+        handleInfoTooltipOpen();
+      })
       .finally(() => setIsLoadingSignup(false));
   }
 
@@ -220,12 +231,13 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
 };
 
   // открытие и закрытие модального окна
-  function handleModalErrorOpen() {
-    setIsModalErrorOpen(true);
+  function handleInfoTooltipOpen() {
+    setIsInfoTooltipOpen(true);
   }
+  
 
   function closePopup() {
-    setIsModalErrorOpen(false);
+    setIsInfoTooltipOpen(false);;
   }
 
   return (
@@ -238,7 +250,7 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
         <Switch>
           <Route exact path="/">
             <div className="page">
-              <Main />
+              <Main loggedIn={loggedIn} />
             </div>
           </Route>
 
@@ -292,6 +304,14 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
             <NotFound />
           </Route>
         </Switch>
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closePopup}
+          isSuccessSignup={isSuccessSignup}
+          successText="Вы успешно зарегистрировались!"
+          unSuccessText="Что-то пошло не так! Попробуйте ещё раз."
+        />
+
         <Route strict path="/(|movies|saved-movies)">
           <Footer loggedIn={loggedIn} />
         </Route>

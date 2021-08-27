@@ -71,6 +71,14 @@
   cursor: pointer;
 }
 
+.popup__icon {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  margin-top: calc(60px - 34px);
+  margin-bottom: 42px;
+}
+
 @media screen and (max-width: 640px) {
   .popup__container {
     width: 282px;
