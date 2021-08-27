@@ -24,6 +24,7 @@ function SearchForm(props) {
       setSpanError("Нужно ввести ключевое слово");
       setTimeout(() => setSpanError(""), 1500);
     }
+    resetForm();
   }
 
 
