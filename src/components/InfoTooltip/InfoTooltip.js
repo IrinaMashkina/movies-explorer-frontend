@@ -9,15 +9,15 @@ const InfoTooltip = (props) => {
       <div className="popup__container">
         <img
           className="popup__icon"
-          src={props.isSuccessSignup ? successIcon : notSuccessIcon}
+          src={props.isSuccess ? successIcon : notSuccessIcon}
           alt={
-            props.isSuccessSignup
-              ? "иконка успешной регистрации"
-              : "иконка неуспешной авторизации"
+            props.isSuccess
+              ? "иконка успешного запроса"
+              : "иконка неуспешного запроса"
           }
         />
         <h3 className="popup__title_place_infotooltip">
-          {props.isSuccessSignup
+          {props.isSuccess
             ? props.successText
             : props.unSuccessText}
         </h3>

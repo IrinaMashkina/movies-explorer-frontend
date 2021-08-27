@@ -24,9 +24,10 @@ function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = React.useState({});
 
-  const [isSuccessSignup, setIsSuccessSignup] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [successText, setSuccessText] = React.useState("");
+  const [unsuccessText, setUnsuccessText] = React.useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -34,7 +35,7 @@ function App() {
 
   const [isModalErrorOpen, setIsModalErrorOpen] = React.useState(false);
 
-  const [serverError, setServerError] = React.useState("");
+  
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -97,7 +98,9 @@ function App() {
         })
         .catch((err) => {
           localStorage.removeItem("allMovies");
-          setServerError(
+          setIsSuccess(false);
+          handleInfoTooltipOpen();
+          setUnsuccessText(
             "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
           );
         })
@@ -109,12 +112,9 @@ function App() {
           setSavedMovies(myMovies);
           localStorage.setItem("savedMovies", JSON.stringify(myMovies));
         })
-        .catch(() => {
+        .catch((err) => {
           localStorage.removeItem("savedMovies");
-          // handleModalErrorOpen();
-          setServerError(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
-          );
+          console.log(err)
         })
         .finally(() => setIsLoading(false));
     }
@@ -128,15 +128,14 @@ function App() {
       .register(data)
       .then((res) => {
         if (res) {
-          setIsSuccessSignup(true);
-        handleInfoTooltipOpen(true);
           handleAuthorization(data);
         }
       })
       .catch((err) => {
-        console.log(err)
-        setIsSuccessSignup(false);
+        console.log(err);
+        setIsSuccess(false);
         handleInfoTooltipOpen();
+        setUnsuccessText("Что-то пошло не так! Попробуйте зарегистрироваться ещё раз.");
       })
       .finally(() => setIsLoadingSignup(false));
   }
@@ -149,13 +148,21 @@ function App() {
       .authorize(data)
       .then((res) => {
         if (res.token) {
+          setSuccessText("Авторизация прошла успешно");
+          setIsSuccess(true);
+          handleInfoTooltipOpen(true);
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           setCurrentUser(res);
           history.push("/movies");
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        setIsSuccess(false);
+        setUnsuccessText("Что-то пошло не так! Попробуйте авторизоваться ещё раз.");
+        handleInfoTooltipOpen();
+        console.log(err);
+      })
       .finally(() => setIsLoadingSignin(false));
   }
 
@@ -164,6 +171,7 @@ function App() {
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("jwt");
+    localStorage.removeItem("queryMovies");
     history.push("/");
   };
 
@@ -176,68 +184,69 @@ function App() {
       .then((res) => {
         setCurrentUser(res);
       })
+      .catch((err) => {
+        setIsSuccess(false);
+        handleInfoTooltipOpen();
+        setUnsuccessText("Что-то пошло не так! Попробуйте ещё раз.");
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // добавление фильма в savedMovies
+  const addMovie = (movie) => {
+    setIsLoading(true);
+    mainApi
+      .createNewMovie(movie)
+      .then((res) => {
+        if (!savedMovies.message) {
+          setSavedMovies([...savedMovies, res]);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+        } else {
+          setSavedMovies(res);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  };
+
+  // удаление фильма из сохранённых
+  const deleteMovie = (movie) => {
+    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
+    setIsLoading(true);
+    mainApi
+      .deleteMovie(movieId)
+      .then(() => {
+        const newArr = savedMovies.filter((item) => item._id !== movieId);
+        setSavedMovies(newArr);
+        localStorage.setItem("savedMovies", JSON.stringify(newArr));
+      })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
   };
 
-// добавление фильма в savedMovies
-const addMovie = (movie) => {
-  setIsLoading(true);
-  mainApi
-    .createNewMovie(movie)
-    .then((res) => {
-      if (!savedMovies.message) {
-        setSavedMovies([...savedMovies, res]);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      } else {
-        setSavedMovies(res);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      }
+  // добавлен ли  фильм в сохранённые
+  const isAddedMovie = (movie) => {
+    if (!savedMovies.message && movie) {
+      return savedMovies.some((item) => item.movieId === movie.id);
+    }
+  };
 
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => setIsLoading(false));
-};
-
-// удаление фильма из сохранённых
-const deleteMovie = (movie) => {
-  const movieId = savedMovies.find((item) => item.id === movie._id)._id;
-  setIsLoading(true);
-  mainApi
-    .deleteMovie(movieId)
-    .then(() => {
-      const newArr = savedMovies.filter((item) => item._id !== movieId);
-      setSavedMovies(newArr);
-      localStorage.setItem("savedMovies", JSON.stringify(newArr));
-      
-    })
-    .catch((err) => console.log(err))
-    .finally(() => setIsLoading(false));
-};
-
-// добавлен ли  фильм в сохранённые
-const isAddedMovie = (movie) => {
-  if (!savedMovies.message && movie) {
-    return savedMovies.some((item) => item.movieId === movie.id);
-  }
-}
-
-
-// добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
-const handleAddOrDeleteMovie = (movie, isAdded) => {
-  !isAdded ? addMovie(movie) : deleteMovie(movie);
-};
+  // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
+  const handleAddOrDeleteMovie = (movie, isAdded) => {
+    !isAdded ? addMovie(movie) : deleteMovie(movie);
+  };
 
   // открытие и закрытие модального окна
   function handleInfoTooltipOpen() {
     setIsInfoTooltipOpen(true);
   }
-  
 
   function closePopup() {
-    setIsInfoTooltipOpen(false);;
+    setIsInfoTooltipOpen(false);
   }
 
   return (
@@ -269,7 +278,6 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
           </Route>
 
           <ProtectedRoute
-            serverError={serverError}
             loggedIn={loggedIn}
             path="/movies"
             component={Movies}
@@ -282,13 +290,13 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
           ></ProtectedRoute>
 
           <ProtectedRoute
-           loggedIn={loggedIn}
-           path="/saved-movies"
-           component={SavedMovies}
-           savedMovies={savedMovies}
-           deleteMovie={deleteMovie}
-           isAddedMovie={isAddedMovie}
-           isLoading={isLoading}
+            loggedIn={loggedIn}
+            path="/saved-movies"
+            component={SavedMovies}
+            savedMovies={savedMovies}
+            deleteMovie={deleteMovie}
+            isAddedMovie={isAddedMovie}
+            isLoading={isLoading}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -307,9 +315,9 @@ const handleAddOrDeleteMovie = (movie, isAdded) => {
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closePopup}
-          isSuccessSignup={isSuccessSignup}
-          successText="Вы успешно зарегистрировались!"
-          unSuccessText="Что-то пошло не так! Попробуйте ещё раз."
+          isSuccess={isSuccess}
+          successText={successText}
+          unSuccessText={unsuccessText}
         />
 
         <Route strict path="/(|movies|saved-movies)">
