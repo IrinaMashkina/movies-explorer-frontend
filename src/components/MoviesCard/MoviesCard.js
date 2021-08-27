@@ -2,6 +2,9 @@ import React from "react";
 
 function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, trailer, image, nameRU, className, activeClassName, savedMovies, duration}) {
 
+const [hour, setHour] = React.useState("");
+const [minute, setMinute] = React.useState("");
+
 const isAdded = isAddedMovie(movie);
 
 function handleLikeClick() {
@@ -12,6 +15,18 @@ function handleLikeClick() {
 function handleDeleteClick() {
   onDelete(movie._id)
 }
+
+React.useEffect(() => { 
+  if (duration < 60) {
+    setMinute(duration);
+  }
+  else {
+    setHour(Math.floor(duration/60).toString())
+    setMinute(Math.floor((duration % 60) * 0.6).toString())
+    
+  }
+},[duration])
+
 
   return (
     <figure className="movies-card">
@@ -34,7 +49,7 @@ function handleDeleteClick() {
             onClick={savedMovies ? handleDeleteClick : handleLikeClick}
           ></button>
         </div>
-        <span className="movies-card__duration">{duration}</span>
+        <span className="movies-card__duration">{hour}ч {minute}мин</span>
       </figcaption>
     </figure>
   );
