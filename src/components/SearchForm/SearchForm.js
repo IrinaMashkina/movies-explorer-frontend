@@ -8,6 +8,7 @@ function SearchForm(props) {
     {}
   );
   const [spanError, setSpanError] = React.useState("");
+  const [searchMoviesSaved, setSearchMoviesSaved] = React.useState([]);
 
 
 

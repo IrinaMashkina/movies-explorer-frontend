@@ -7,6 +7,7 @@ import ModalError from "../InfoTooltip/InfoTooltip";
 
 function Movies(props) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
+  const searchMoviesSaved = JSON.parse(localStorage.getItem("queryMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
@@ -24,7 +25,9 @@ function Movies(props) {
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(allMovies, value));
+    console.log(queryMovies);
     setIsQueryMovies(true);
+    localStorage.setItem("queryMovies", JSON.stringify(queryMovies));
   };
 
   const handleMoviesSearch = (movies, searchValue) => {
@@ -35,6 +38,13 @@ function Movies(props) {
       return newArr;
     }
   };
+
+  React.useEffect(() => {
+    if (searchMoviesSaved) {
+      setQueryMovies(searchMoviesSaved);
+      setIsQueryMovies(true);
+    }
+  },[])
 
   return (
     <main className="movies">
@@ -51,7 +61,7 @@ function Movies(props) {
 
       {isQueryMovies && queryMovies && queryMovies.length !== 0 && (
         <MoviesCardList
-        handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
+          handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
           isAddedMovie={props.isAddedMovie}
           movies={
             isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
@@ -60,6 +70,18 @@ function Movies(props) {
           activeClassName="movies-card__like-button_active"
         />
       )}
+
+      {/* {searchMoviesSaved &&  (
+        <MoviesCardList
+          handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
+          isAddedMovie={props.isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
+          }
+          className="movies-card__like-button"
+          activeClassName="movies-card__like-button_active"
+        />
+      )} */}
 
       {props.serverError && (
         <ModalError

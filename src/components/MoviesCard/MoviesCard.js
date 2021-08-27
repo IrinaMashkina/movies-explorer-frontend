@@ -18,6 +18,7 @@ function handleDeleteClick() {
 
 React.useEffect(() => { 
   if (duration < 60) {
+    setHour("0");
     setMinute(duration);
   }
   else {
@@ -49,7 +50,7 @@ React.useEffect(() => {
             onClick={savedMovies ? handleDeleteClick : handleLikeClick}
           ></button>
         </div>
-        <span className="movies-card__duration">{hour}ч {minute}мин</span>
+        <span className="movies-card__duration">{hour !=="0" ? `${hour}ч ${minute}мин` : `${minute} мин`}</span>
       </figcaption>
     </figure>
   );
