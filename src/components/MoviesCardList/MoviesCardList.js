@@ -66,6 +66,7 @@ function MoviesCardList({
   };
 
   React.useEffect(() => {
+    console.log(`movies in MoviesCardList: ${movies.message}`)
     if (!movies.message) {
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
@@ -112,7 +113,7 @@ function MoviesCardList({
             );
           })}
 
-        {!movies && movies.message && (
+        { movies.message && (
           <p className="movies__message">{movies.message}</p>
         )}
       </ul>

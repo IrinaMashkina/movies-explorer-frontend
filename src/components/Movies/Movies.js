@@ -3,11 +3,11 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 import Preloader from "../Preloader/Preloader";
-import ModalError from "../InfoTooltip/InfoTooltip";
+
 
 function Movies(props) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
-  const searchMoviesSaved = JSON.parse(localStorage.getItem("queryMovies"));
+  const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
@@ -27,7 +27,12 @@ function Movies(props) {
     setQueryMovies(handleMoviesSearch(allMovies, value));
     console.log(queryMovies);
     setIsQueryMovies(true);
-    localStorage.setItem("queryMovies", JSON.stringify(queryMovies));
+    if (queryMovies.length !== 0){
+      localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
+    } else {
+      localStorage.clear();
+    }
+    
   };
 
   const handleMoviesSearch = (movies, searchValue) => {
@@ -40,6 +45,7 @@ function Movies(props) {
   };
 
   React.useEffect(() => {
+    const searchMoviesSaved = JSON.parse(localStorage.getItem("saveMovies"));
     if (searchMoviesSaved) {
       setQueryMovies(searchMoviesSaved);
       setIsQueryMovies(true);
@@ -49,6 +55,7 @@ function Movies(props) {
   return (
     <main className="movies">
       <SearchForm
+      movies={saveMovies}
         isChecked={isChecked}
         onSearch={handleSearch}
         onCheckboxChange={handleCheckboxChange}
@@ -69,27 +76,7 @@ function Movies(props) {
           className="movies-card__like-button"
           activeClassName="movies-card__like-button_active"
         />
-      )}
-
-      {/* {searchMoviesSaved &&  (
-        <MoviesCardList
-          handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
-          isAddedMovie={props.isAddedMovie}
-          movies={
-            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
-          }
-          className="movies-card__like-button"
-          activeClassName="movies-card__like-button_active"
-        />
-      )} */}
-
-      {props.serverError && (
-        <ModalError
-          isOpen={props.isModalErrorOpen}
-          onClose={props.closePopup}
-          text={props.serverError}
-        />
-      )}
+      )} 
     </main>
   );
 }

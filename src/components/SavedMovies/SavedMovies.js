@@ -3,7 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
-function SavedMovies({  isAddedMovie, deleteMovie,  isLoading }) {
+function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
@@ -14,53 +14,61 @@ function SavedMovies({  isAddedMovie, deleteMovie,  isLoading }) {
     setIsChecked(e.target.checked);
   }
 
-
-  const filteredMoviesByCheckbox = (movies) =>
-    movies.filter((movie) => movie.duration < 40);
+  const filteredMoviesByCheckbox = (movies) => {
+    if (!movies.message) {
+      movies.filter((movie) => movie.duration < 40);
+    }
+  }
+   
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(savedMovies, value));
     setIsQueryMovies(true);
   };
 
-  const handleMoviesSearch = (movies, searchValue) =>
+  const handleMoviesSearch = (movies, searchValue) =>{
+  if (movies) {
     movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
     );
+  }}
 
 
   return (
     <main className="movies">
-      <SearchForm onCheckboxChange={handleCheckboxChange} onSearch={handleSearch}/>
+      <SearchForm
+        onCheckboxChange={handleCheckboxChange}
+        onSearch={handleSearch}
+        movies={savedMovies}
+      />
 
       {isLoading && <Preloader />}
 
-      {(isQueryMovies && queryMovies.length === 0) && <p>Ничего не найдено</p>}
+      {isQueryMovies && queryMovies.length === 0 && <p>Ничего не найдено</p>}
 
       {!isLoading && !isQueryMovies && (
-        <MoviesCardList 
-        isAddedMovie={isAddedMovie}
-        movies={
-          isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies
-        }
-        deleteMovie={deleteMovie}
-        isMyMovies
-        savedMovies
-        className="movies-card__delete-button"
+        <MoviesCardList
+          isAddedMovie={isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(savedMovies) : savedMovies
+          }
+          deleteMovie={deleteMovie}
+          isMyMovies
+          savedMovies
+          className="movies-card__delete-button"
         />
       )}
 
-
-{!isLoading && isQueryMovies && (
+      {!isLoading && isQueryMovies && (
         <MoviesCardList
-        isAddedMovie={isAddedMovie}
-        movies={
-          isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
-        }
-        deleteMovie={deleteMovie}
-        isMyMovies
-        savedMovies
-        className="movies-card__delete-button"
+          isAddedMovie={isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
+          }
+          deleteMovie={deleteMovie}
+          isMyMovies
+          savedMovies
+          className="movies-card__delete-button"
         />
       )}
     </main>

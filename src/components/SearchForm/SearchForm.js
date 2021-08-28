@@ -3,12 +3,11 @@ import React from "react";
 import FormValidator from "../../hooks/useFormValidator";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm(props) {
+function SearchForm({movies, onCheckboxChange, onSearch}) {
   const { resetForm, inputValues, handleInputChange, isValid } = FormValidator(
     {}
   );
   const [spanError, setSpanError] = React.useState("");
-  const [searchMoviesSaved, setSearchMoviesSaved] = React.useState([]);
 
 
 
@@ -19,7 +18,7 @@ function SearchForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      props.onSearch(inputValues.search);
+      onSearch(inputValues.search);
  
     } else {
       setSpanError("Нужно ввести ключевое слово");
@@ -56,7 +55,7 @@ function SearchForm(props) {
         </span>
       </div>
 
-      <FilterCheckbox onChange={props.onCheckboxChange}/>
+      <FilterCheckbox disable={movies && !movies.message ? false : true} onChange={onCheckboxChange}/>
     </form>
   );
 }
