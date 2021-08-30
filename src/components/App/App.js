@@ -6,7 +6,7 @@ import Movies from "../Movies/Movies";
 import Footer from "../Footer/Footer";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Main from "../Main/Main";
 import Profile from "../Profile/Profile";
 import NotFound from "../NotFound/NotFound";
@@ -22,6 +22,8 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   const history = useHistory();
+  const location = useLocation();
+
   const [currentUser, setCurrentUser] = React.useState({});
 
   const [isSuccess, setIsSuccess] = React.useState(false);
@@ -31,37 +33,31 @@ function App() {
 
   const [allMovies, setAllMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [saveMovies, setSaveMovies] = React.useState([]);
-
-  const [isModalErrorOpen, setIsModalErrorOpen] = React.useState(false);
-
-  
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
 
-  // // проверка токена
-  // const checkToken = React.useCallback(() => {
-
-  // }, [history]);
-
-  // React.useEffect(() => {
-  //   checkToken();
-  // }, [history, checkToken]);
 
   const сheckToken = React.useCallback(() => {
+    const path = location.pathname;
     const token = localStorage.getItem("jwt");
     auth
       .checkToken(token)
       .then((data) => {
-        setCurrentUser(data);
-        setLoggedIn(true);
-        history.push("/movies");
+        if (data) {
+          setCurrentUser(data);
+          setLoggedIn(true);
+          history.push(path);
+        }
       })
-      .catch((err) => console.log(err));
-  }, [history]);
+      .catch((err) => {
+        console.log(err);
+        history.push("/");
+        setLoggedIn(false);
+      });
+  }, []);
 
   React.useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -97,6 +93,7 @@ function App() {
           localStorage.setItem("allMovies", JSON.stringify(res));
         })
         .catch((err) => {
+          console.log(err);
           localStorage.removeItem("allMovies");
           setIsSuccess(false);
           handleInfoTooltipOpen();
@@ -108,17 +105,51 @@ function App() {
 
       mainApi
         .getSavedMovies()
-        .then((myMovies) => {
-          setSavedMovies(myMovies);
-          localStorage.setItem("savedMovies", JSON.stringify(myMovies));
+        .then((res) => {
+          if (!res.message) {
+            const savedArr = res.map((item) => ({ ...item, id: item.movieId }));
+            setSavedMovies(savedArr);
+            localStorage.setItem("savedMovies", JSON.stringify(savedArr));
+          }
+         
         })
         .catch((err) => {
           localStorage.removeItem("savedMovies");
-          console.log(err)
+          console.log(err);
         })
         .finally(() => setIsLoading(false));
     }
   }, [loggedIn, history]);
+
+  // авторизация
+
+  function handleAuthorization(data) {
+    setIsLoadingSignin(true);
+    auth
+      .authorize(data)
+      .then((res) => {
+        if (res.token) {
+          console.log(res.token)
+          localStorage.setItem("jwt", res.token);
+          console.log(localStorage.getItem("jwt"));
+          setLoggedIn(true);
+          setCurrentUser(res);
+          setSuccessText("Авторизация прошла успешно");
+          setIsSuccess(true);
+          handleInfoTooltipOpen(true);
+          history.push("/movies");
+        }
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        setUnsuccessText(
+          "Что-то пошло не так! Попробуйте авторизоваться ещё раз."
+        );
+        handleInfoTooltipOpen();
+        console.log(err);
+      })
+      .finally(() => setIsLoadingSignin(false));
+  }
 
   // регистрация
 
@@ -135,43 +166,22 @@ function App() {
         console.log(err);
         setIsSuccess(false);
         handleInfoTooltipOpen();
-        setUnsuccessText("Что-то пошло не так! Попробуйте зарегистрироваться ещё раз.");
+        setUnsuccessText(
+          "Что-то пошло не так! Попробуйте зарегистрироваться ещё раз."
+        );
       })
       .finally(() => setIsLoadingSignup(false));
   }
 
-  // авторизация
 
-  function handleAuthorization(data) {
-    setIsLoadingSignin(true);
-    auth
-      .authorize(data)
-      .then((res) => {
-        if (res.token) {
-          setSuccessText("Авторизация прошла успешно");
-          setIsSuccess(true);
-          handleInfoTooltipOpen(true);
-          localStorage.setItem("jwt", res.token);
-          setLoggedIn(true);
-          setCurrentUser(res);
-          history.push("/movies");
-        }
-      })
-      .catch((err) => {
-        setIsSuccess(false);
-        setUnsuccessText("Что-то пошло не так! Попробуйте авторизоваться ещё раз.");
-        handleInfoTooltipOpen();
-        console.log(err);
-      })
-      .finally(() => setIsLoadingSignin(false));
-  }
 
   // логаут
 
   const handleLogout = () => {
-    setLoggedIn(false);
     localStorage.removeItem("jwt");
-    localStorage.removeItem("queryMovies");
+    localStorage.removeItem("saveMovies");
+    setLoggedIn(false);
+    setCurrentUser({})
     history.push("/");
   };
 
@@ -215,8 +225,10 @@ function App() {
 
   // удаление фильма из сохранённых
   const deleteMovie = (movie) => {
-    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
     setIsLoading(true);
+    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
+    console.log(`movieId в deleteMovie: ${movieId}`);
+ 
     mainApi
       .deleteMovie(movieId)
       .then(() => {
@@ -231,7 +243,7 @@ function App() {
   // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) => {
     if (!savedMovies.message && movie) {
-      return savedMovies.some((item) => item.movieId === movie.id);
+      return savedMovies.some((item) => item.id === movie.id);
     }
   };
 
@@ -239,6 +251,8 @@ function App() {
   const handleAddOrDeleteMovie = (movie, isAdded) => {
     !isAdded ? addMovie(movie) : deleteMovie(movie);
   };
+
+
 
   // открытие и закрытие модального окна
   function handleInfoTooltipOpen() {
@@ -281,12 +295,10 @@ function App() {
             loggedIn={loggedIn}
             path="/movies"
             component={Movies}
-            allMovies={allMovies}
             handleAddOrDeleteMovie={handleAddOrDeleteMovie}
             isAddedMovie={isAddedMovie}
             isLoading={isLoading}
             closePopup={closePopup}
-            isModalErrorOpen={isModalErrorOpen}
           ></ProtectedRoute>
 
           <ProtectedRoute

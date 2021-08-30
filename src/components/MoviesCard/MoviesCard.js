@@ -13,7 +13,7 @@ function handleLikeClick() {
 }
 
 function handleDeleteClick() {
-  onDelete(movie._id)
+  onDelete(movie)
 }
 
 React.useEffect(() => { 

@@ -29,8 +29,9 @@ function Movies(props) {
     setIsQueryMovies(true);
     if (queryMovies.length !== 0){
       localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
-    } else {
-      localStorage.clear();
+    } 
+    else {
+      localStorage.removeItem("savedMovies");
     }
     
   };

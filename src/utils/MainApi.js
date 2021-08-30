@@ -24,7 +24,7 @@ class Api {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        authorization: `Bearer ${localStorage.getItem('jwt')}`,
       },
       body: JSON.stringify({
         country: data.country || "country",
@@ -32,9 +32,9 @@ class Api {
         duration: data.duration,
         year: data.year || "year",
         description: data.description || "description",
-        image: `https://api.nomoreparties.co${data.image.url}`,
+        image: `https://api.nomoreparties.co${data.image.url}` || "https://www.something.com",
         trailer: data.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+        thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}` || "https://www.something.com",
         movieId: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN,

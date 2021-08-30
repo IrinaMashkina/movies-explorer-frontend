@@ -6,6 +6,7 @@ import { base_URL } from "../../constants/constants";
 
 function MoviesCardList({
   movies,
+  message,
   className,
   activeClassName,
   isMyMovies,
@@ -66,7 +67,7 @@ function MoviesCardList({
   };
 
   React.useEffect(() => {
-    console.log(`movies in MoviesCardList: ${movies.message}`)
+    console.log(`movies in MoviesCardList: ${movies}`)
     if (!movies.message) {
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
@@ -113,8 +114,8 @@ function MoviesCardList({
             );
           })}
 
-        { movies.message && (
-          <p className="movies__message">{movies.message}</p>
+        { (movies.message || movies===null) && (
+          <p className="movies__message">{message}</p>
         )}
       </ul>
 
