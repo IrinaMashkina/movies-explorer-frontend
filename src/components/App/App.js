@@ -224,10 +224,11 @@ function App() {
   };
 
   // удаление фильма из сохранённых
-  const deleteMovie = (movie) => {
+  const deleteMoviefromSavedPage = (movie) => {
     setIsLoading(true);
-    const movieId = savedMovies.find((item) => item.id === movie._id)._id;
-    console.log(`movieId в deleteMovie: ${movieId}`);
+    const movieId = savedMovies.find((item) => (item.movieId === movie.movieId))._id;
+    
+    console.log(`movieId в deleteMovie: ${Object.keys(movieId)}`);
  
     mainApi
       .deleteMovie(movieId)
@@ -240,16 +241,36 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  const deleteMovieFromMoviesPage  = (movie) => {
+    setIsLoading(true);
+    const movieId = savedMovies.filter((item) => (item.movieId === movie.id))[0]._id;
+    console.dir(movieId)
+   
+    mainApi
+      .deleteMovie(movieId)
+      .then(() => {
+        const newArr = savedMovies.filter((item) => item._id !== movieId);
+        setSavedMovies(newArr);
+        localStorage.setItem("savedMovies", JSON.stringify(newArr));
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
+  };
+
+  
+
   // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) => {
     if (!savedMovies.message && movie) {
-      return savedMovies.some((item) => item.id === movie.id);
+      return savedMovies.some((item) => {
+        // console.log(`isAdded item.id: ${item.movieId}, movie.id: ${movie.id}`)
+        return item.movieId === movie.id});
     }
   };
 
   // добавление или удаление фильма по лайку в зависимости от того, добавлен он или нет
   const handleAddOrDeleteMovie = (movie, isAdded) => {
-    !isAdded ? addMovie(movie) : deleteMovie(movie);
+    !isAdded ? addMovie(movie) : deleteMovieFromMoviesPage(movie);
   };
 
 
@@ -298,7 +319,6 @@ function App() {
             handleAddOrDeleteMovie={handleAddOrDeleteMovie}
             isAddedMovie={isAddedMovie}
             isLoading={isLoading}
-            closePopup={closePopup}
           ></ProtectedRoute>
 
           <ProtectedRoute
@@ -306,7 +326,7 @@ function App() {
             path="/saved-movies"
             component={SavedMovies}
             savedMovies={savedMovies}
-            deleteMovie={deleteMovie}
+            deleteMovie={deleteMoviefromSavedPage}
             isAddedMovie={isAddedMovie}
             isLoading={isLoading}
           ></ProtectedRoute>

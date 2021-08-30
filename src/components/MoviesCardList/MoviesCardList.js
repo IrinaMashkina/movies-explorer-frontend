@@ -67,8 +67,8 @@ function MoviesCardList({
   };
 
   React.useEffect(() => {
-    console.log(`movies in MoviesCardList: ${movies}`)
-    if (!movies.message) {
+    console.log(`movies in MoviesCardList: ${movies}`);
+    if (movies) {
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
       const count = Math.min(movies.length, countMovies(windowSize));
@@ -103,6 +103,7 @@ function MoviesCardList({
                     ? movie.image.formats.thumbnail.url
                     : movie.thumbnail
                 }
+                // проверить
                 movieId={!isMyMovies ? movie.id : movie.movieId}
                 nameRU={movie.nameRU}
                 nameEN={movie.nameEN}
@@ -114,7 +115,7 @@ function MoviesCardList({
             );
           })}
 
-        { (movies.message || movies===null) && (
+        {!movies && (
           <p className="movies__message">{message}</p>
         )}
       </ul>

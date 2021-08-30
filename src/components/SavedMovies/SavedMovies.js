@@ -56,6 +56,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
           isMyMovies
           savedMovies
           className="movies-card__delete-button"
+          activeClassName="movies-card__delete-button"
         />
       )}
 
@@ -69,6 +70,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
           isMyMovies
           savedMovies
           className="movies-card__delete-button"
+          activeClassName="movies-card__delete-button"
           message="Нет сохранённых фильмов"
         />
       )}

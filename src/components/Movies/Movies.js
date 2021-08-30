@@ -5,7 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
 
-function Movies(props) {
+function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
   const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
 
@@ -56,12 +56,12 @@ function Movies(props) {
   return (
     <main className="movies">
       <SearchForm
-      movies={saveMovies}
+        movies={queryMovies}
         isChecked={isChecked}
         onSearch={handleSearch}
         onCheckboxChange={handleCheckboxChange}
       />
-      {props.isLoading && <Preloader />}
+      {isLoading && <Preloader />}
 
       {isQueryMovies && queryMovies && queryMovies.length === 0 && (
         <p>Ничего не найдено</p>
@@ -69,8 +69,8 @@ function Movies(props) {
 
       {isQueryMovies && queryMovies && queryMovies.length !== 0 && (
         <MoviesCardList
-          handleAddOrDeleteMovie={props.handleAddOrDeleteMovie}
-          isAddedMovie={props.isAddedMovie}
+          handleAddOrDeleteMovie={handleAddOrDeleteMovie}
+          isAddedMovie={isAddedMovie}
           movies={
             isChecked ? filteredMoviesByCheckbox(queryMovies) : queryMovies
           }

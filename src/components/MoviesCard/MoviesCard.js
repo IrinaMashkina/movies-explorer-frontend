@@ -5,7 +5,9 @@ function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, traile
 const [hour, setHour] = React.useState("");
 const [minute, setMinute] = React.useState("");
 
-const isAdded = isAddedMovie(movie);
+const [isAdded, setIsAdded] = React.useState(false);
+
+const [classN, setClassN] = React.useState("");
 
 function handleLikeClick() {
   handleClick(movie, isAdded);
@@ -28,6 +30,18 @@ React.useEffect(() => {
   }
 },[duration])
 
+React.useEffect(() => {
+ setIsAdded(isAddedMovie(movie));
+ if (isAdded) {
+   setClassN(activeClassName)
+ }
+ else {
+   setClassN(className)
+ }
+  console.log(`movie in movieCard: ${movie}`)
+
+}, [activeClassName, className, isAdded, isAddedMovie, movie])
+
 
   return (
     <figure className="movies-card">
@@ -46,7 +60,8 @@ React.useEffect(() => {
           <button
             aria-label="Кнопка"
             type="button"
-            className={isAdded ? activeClassName : className}
+          //  className={isAdded ? activeClassName : className}
+          className={classN}
             onClick={savedMovies ? handleDeleteClick : handleLikeClick}
           ></button>
         </div>
