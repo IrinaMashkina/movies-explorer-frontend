@@ -10,7 +10,7 @@ function MoviesCardList({
   className,
   activeClassName,
   isMyMovies,
-  savedMovies,
+  isSavedMovies,
   handleAddOrDeleteMovie,
   isAddedMovie,
   deleteMovie,
@@ -67,7 +67,7 @@ function MoviesCardList({
   };
 
   React.useEffect(() => {
-    console.log(`movies in MoviesCardList: ${movies}`);
+    // console.log(`movies in MoviesCardList: ${movies}`);
     if (movies) {
       const windowSize = window.innerWidth;
       setMoreMovies(countMore(windowSize));
@@ -103,13 +103,12 @@ function MoviesCardList({
                     ? movie.image.formats.thumbnail.url
                     : movie.thumbnail
                 }
-                // проверить
                 movieId={!isMyMovies ? movie.id : movie.movieId}
                 nameRU={movie.nameRU}
                 nameEN={movie.nameEN}
                 handleClick={handleAddOrDeleteMovie}
                 isAddedMovie={isAddedMovie}
-                savedMovies={savedMovies}
+                isSavedMovies={isSavedMovies}
                 onDelete={deleteMovie}
               />
             );

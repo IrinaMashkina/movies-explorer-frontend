@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import FormValidator from "../../hooks/useFormValidator";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({movies, onCheckboxChange, onSearch}) {
+function SearchForm({
+  length,
+  onCheckboxChange,
+  onSearch,
+  movies,
+  isSavedMovies,
+}) {
   const { resetForm, inputValues, handleInputChange, isValid } = FormValidator(
     {}
   );
   const [spanError, setSpanError] = React.useState("");
 
-
+  const [isSubmitDisable, setIsSubmitDisable] = React.useState(true);
+  const [isCheckboxDisable, setIsCheckboxDisable] = React.useState(true);
 
   React.useEffect(() => {
     resetForm();
@@ -19,7 +26,6 @@ function SearchForm({movies, onCheckboxChange, onSearch}) {
     e.preventDefault();
     if (isValid) {
       onSearch(inputValues.search);
- 
     } else {
       setSpanError("Нужно ввести ключевое слово");
       setTimeout(() => setSpanError(""), 1500);
@@ -27,7 +33,18 @@ function SearchForm({movies, onCheckboxChange, onSearch}) {
     resetForm();
   }
 
-
+  React.useEffect(() => {
+    if (isSavedMovies && length === 0) {
+      setIsSubmitDisable(true);
+      setIsCheckboxDisable(true)
+    } else if (movies && movies.length === 0) {
+      setIsSubmitDisable(false);
+      setIsCheckboxDisable(true);
+    } else {
+      setIsSubmitDisable(false);
+      setIsCheckboxDisable(false);
+    }
+  }, [isSavedMovies, length, movies]);
 
   return (
     <form className="search-form forms" noValidate onSubmit={handleSubmit}>
@@ -43,7 +60,15 @@ function SearchForm({movies, onCheckboxChange, onSearch}) {
           value={inputValues.search || ""}
         ></input>
 
-        <button type="submit" className="search-form__submit"></button>
+        <button
+          // disabled={isSavedMovies && length === 0 ? true : false}
+          type="submit"
+          className={
+            isSubmitDisable
+              ? "search-form__submit search-form__submit_disabled"
+              : "search-form__submit"
+          }
+        ></button>
         <span
           className={
             isValid
@@ -55,7 +80,11 @@ function SearchForm({movies, onCheckboxChange, onSearch}) {
         </span>
       </div>
 
-      <FilterCheckbox disable={movies && !movies.message ? false : true} onChange={onCheckboxChange}/>
+      <FilterCheckbox
+        // disable={(length && length !== 0) || movies ? false : true}
+        disable = {isCheckboxDisable}
+        onChange={onCheckboxChange}
+      />
     </form>
   );
 }

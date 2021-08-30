@@ -25,13 +25,13 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(allMovies, value));
-    console.log(queryMovies);
+    // console.log(queryMovies);
     setIsQueryMovies(true);
     if (queryMovies.length !== 0){
       localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
     } 
     else {
-      localStorage.removeItem("savedMovies");
+      localStorage.removeItem("saveMovies");
     }
     
   };

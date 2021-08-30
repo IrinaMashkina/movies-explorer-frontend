@@ -2,9 +2,6 @@ import React from "react";
 
 function FilterCheckbox(props) {
 
-React.useEffect(() => {
-  console.log(props.disable)
-},[props.disable])
 
   return (
     <label className="filter-checkbox" htmlFor="filter-checkbox__input">

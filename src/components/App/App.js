@@ -180,6 +180,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("saveMovies");
+    localStorage.clear()
     setLoggedIn(false);
     setCurrentUser({})
     history.push("/");
@@ -227,9 +228,7 @@ function App() {
   const deleteMoviefromSavedPage = (movie) => {
     setIsLoading(true);
     const movieId = savedMovies.find((item) => (item.movieId === movie.movieId))._id;
-    
-    console.log(`movieId в deleteMovie: ${Object.keys(movieId)}`);
- 
+   
     mainApi
       .deleteMovie(movieId)
       .then(() => {
@@ -244,8 +243,7 @@ function App() {
   const deleteMovieFromMoviesPage  = (movie) => {
     setIsLoading(true);
     const movieId = savedMovies.filter((item) => (item.movieId === movie.id))[0]._id;
-    console.dir(movieId)
-   
+       
     mainApi
       .deleteMovie(movieId)
       .then(() => {

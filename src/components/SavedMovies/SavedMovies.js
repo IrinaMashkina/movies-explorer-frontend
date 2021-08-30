@@ -5,17 +5,19 @@ import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
+  console.log(savedMovies.length)
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
+
 
   function handleCheckboxChange(e) {
     setIsChecked(e.target.checked);
   }
 
   const filteredMoviesByCheckbox = (movies) => {
-    if (!movies.message) {
+    if (movies) {
       movies.filter((movie) => movie.duration < 40);
     }
   }
@@ -39,7 +41,8 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
       <SearchForm
         onCheckboxChange={handleCheckboxChange}
         onSearch={handleSearch}
-        movies={savedMovies}
+        length={savedMovies.length}
+        isSavedMovies
       />
 
       {isLoading && <Preloader />}
@@ -54,7 +57,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
           }
           deleteMovie={deleteMovie}
           isMyMovies
-          savedMovies
+          isSavedMovies
           className="movies-card__delete-button"
           activeClassName="movies-card__delete-button"
         />
@@ -68,7 +71,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
           }
           deleteMovie={deleteMovie}
           isMyMovies
-          savedMovies
+          isSavedMovies
           className="movies-card__delete-button"
           activeClassName="movies-card__delete-button"
           message="Нет сохранённых фильмов"

@@ -1,6 +1,7 @@
 import React from "react";
 
-function MoviesCard({movie, handleClick, onDelete, isAddedMovie, movieId, trailer, image, nameRU, className, activeClassName, savedMovies, duration}) {
+function MoviesCard({movie, handleClick, onDelete, isAddedMovie, trailer, image, nameRU, className, activeClassName, isSavedMovies, duration}) {
+
 
 const [hour, setHour] = React.useState("");
 const [minute, setMinute] = React.useState("");
@@ -8,6 +9,8 @@ const [minute, setMinute] = React.useState("");
 const [isAdded, setIsAdded] = React.useState(false);
 
 const [classN, setClassN] = React.useState("");
+
+
 
 function handleLikeClick() {
   handleClick(movie, isAdded);
@@ -36,9 +39,9 @@ React.useEffect(() => {
    setClassN(activeClassName)
  }
  else {
-   setClassN(className)
+   setClassN(className);
+
  }
-  console.log(`movie in movieCard: ${movie}`)
 
 }, [activeClassName, className, isAdded, isAddedMovie, movie])
 
@@ -62,7 +65,7 @@ React.useEffect(() => {
             type="button"
           //  className={isAdded ? activeClassName : className}
           className={classN}
-            onClick={savedMovies ? handleDeleteClick : handleLikeClick}
+            onClick={isSavedMovies ? handleDeleteClick : handleLikeClick}
           ></button>
         </div>
         <span className="movies-card__duration">{hour !=="0" ? `${hour}ч ${minute}мин` : `${minute} мин`}</span>

@@ -54,6 +54,11 @@
   border: none;
 }
 
+.search-form__submit_disabled {
+  pointer-events: none;
+  user-select: none;
+}
+
 .search-form__submit:hover {
   background-color: #1b35ac;
   cursor: pointer;
