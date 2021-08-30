@@ -5,7 +5,6 @@ import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
@@ -49,19 +48,19 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
       <SearchForm
         onCheckboxChange={handleCheckboxChange}
         onSearch={handleSearch}
-        length={savedMovies.length}
+        length={savedMovies ? savedMovies.length : 0}
         isSavedMovies
       />
 
       {isLoading && <Preloader />}
 
-      {savedMovies.length === 0 && (
+      { !savedMovies && (
         <p className="movies__message">Ещё нет сохранённых фильмов</p>
       )}
 
 
 
-      {!isLoading && savedMovies.length !== 0 && !isNotFoundMovies && (
+      {!isLoading && savedMovies && !isNotFoundMovies && (
         <MoviesCardList
           isAddedMovie={isAddedMovie}
           movies={
