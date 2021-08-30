@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import FormValidator from "../../hooks/useFormValidator";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";

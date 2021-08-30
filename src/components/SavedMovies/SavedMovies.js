@@ -5,35 +5,43 @@ import Preloader from "../Preloader/Preloader";
 
 function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
   const savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
-  console.log(savedMovies.length)
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
   const [isChecked, setIsChecked] = React.useState(false);
-
+  const [isNotFoundMovies, setIsNotFoundMovies] = React.useState(false);
 
   function handleCheckboxChange(e) {
     setIsChecked(e.target.checked);
   }
 
-  const filteredMoviesByCheckbox = (movies) => {
+  function filteredMoviesByCheckbox(movies)  {
     if (movies) {
-      movies.filter((movie) => movie.duration < 40);
+      return movies.filter((movie) => movie.duration < 40);
     }
-  }
-   
-
-  const handleSearch = (value) => {
-    setQueryMovies(handleMoviesSearch(savedMovies, value));
-    setIsQueryMovies(true);
+  };
+  function handleMoviesSearch(movies, searchValue) {
+    if (movies) {
+      const newArr = movies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      return newArr;
+    }
   };
 
-  const handleMoviesSearch = (movies, searchValue) =>{
-  if (movies) {
-    movies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }}
+ function handleSearch(value)  {
+    setQueryMovies(handleMoviesSearch(savedMovies, value));
+    console.log(handleMoviesSearch(savedMovies, value))
+    if (queryMovies.length !== 0) {
+      setIsQueryMovies(true);
+      setIsNotFoundMovies(false);
+    } else {
+      setIsNotFoundMovies(true);
+      setIsQueryMovies(false);
+    }
+  };
+
+
 
 
   return (
@@ -47,9 +55,13 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
 
       {isLoading && <Preloader />}
 
-      {isQueryMovies && queryMovies.length === 0 && <p>Ничего не найдено</p>}
+      {savedMovies.length === 0 && (
+        <p className="movies__message">Ещё нет сохранённых фильмов</p>
+      )}
 
-      {!isLoading && !isQueryMovies && (
+
+
+      {!isLoading && savedMovies.length !== 0 && !isNotFoundMovies && (
         <MoviesCardList
           isAddedMovie={isAddedMovie}
           movies={
@@ -63,7 +75,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
         />
       )}
 
-      {!isLoading && isQueryMovies && (
+      {!isLoading && isQueryMovies && !isNotFoundMovies && (
         <MoviesCardList
           isAddedMovie={isAddedMovie}
           movies={
@@ -74,9 +86,9 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
           isSavedMovies
           className="movies-card__delete-button"
           activeClassName="movies-card__delete-button"
-          message="Нет сохранённых фильмов"
         />
       )}
+            {isNotFoundMovies && <p>Ничего не найдено</p>}
     </main>
   );
 }

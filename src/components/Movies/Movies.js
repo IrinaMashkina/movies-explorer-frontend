@@ -7,10 +7,14 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
-  const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
+  // const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
+
+// const [foundedMovies, setFoundedMovies] = React.useState([]);
+// const [isFoundedMovies, setIsFoundedMovies] = React.useState([]);
+
   const [isChecked, setIsChecked] = React.useState(false);
 
   function handleCheckboxChange(e) {
@@ -25,14 +29,17 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
 
   const handleSearch = (value) => {
     setQueryMovies(handleMoviesSearch(allMovies, value));
-    // console.log(queryMovies);
     setIsQueryMovies(true);
-    if (queryMovies.length !== 0){
-      localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
-    } 
-    else {
-      localStorage.removeItem("saveMovies");
-    }
+    
+    // if (queryMovies){
+    //   console.log("записать в локал");
+    //   localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
+    //   setFoundedMovies(queryMovies)
+    // } 
+    // else {
+    //   localStorage.removeItem("saveMovies");
+    //   setFoundedMovies([]);
+    // }
     
   };
 
@@ -45,13 +52,13 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
     }
   };
 
-  React.useEffect(() => {
-    const searchMoviesSaved = JSON.parse(localStorage.getItem("saveMovies"));
-    if (searchMoviesSaved) {
-      setQueryMovies(searchMoviesSaved);
-      setIsQueryMovies(true);
-    }
-  },[])
+  // React.useEffect(() => {
+
+  //   if (saveMovies) {
+  //     setFoundedMovies(saveMovies);
+  //     setIsFoundedMovies(true);
+  //   }
+  // },[])
 
   return (
     <main className="movies">
@@ -62,6 +69,18 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
         onCheckboxChange={handleCheckboxChange}
       />
       {isLoading && <Preloader />}
+
+      {/* {isFoundedMovies && !isQueryMovies && (
+        <MoviesCardList
+          handleAddOrDeleteMovie={handleAddOrDeleteMovie}
+          isAddedMovie={isAddedMovie}
+          movies={
+            isChecked ? filteredMoviesByCheckbox(foundedMovies) : foundedMovies
+          }
+          className="movies-card__like-button"
+          activeClassName="movies-card__like-button_active"
+        />
+      )}  */}
 
       {isQueryMovies && queryMovies && queryMovies.length === 0 && (
         <p>Ничего не найдено</p>
