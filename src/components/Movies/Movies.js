@@ -7,13 +7,13 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
   const allMovies = JSON.parse(localStorage.getItem("allMovies"));
-  // const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
+  const saveMovies =  JSON.parse(localStorage.getItem("saveMovies"));
 
   const [queryMovies, setQueryMovies] = React.useState([]);
   const [isQueryMovies, setIsQueryMovies] = React.useState(false);
 
-// const [foundedMovies, setFoundedMovies] = React.useState([]);
-// const [isFoundedMovies, setIsFoundedMovies] = React.useState([]);
+const [foundedMovies, setFoundedMovies] = React.useState([]);
+const [isFoundedMovies, setIsFoundedMovies] = React.useState([]);
 
   const [isChecked, setIsChecked] = React.useState(false);
 
@@ -28,17 +28,18 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
   };
 
   const handleSearch = (value) => {
-    setQueryMovies(handleMoviesSearch(allMovies, value));
+    const queriedMovies = handleMoviesSearch(allMovies, value);
+    setQueryMovies(queriedMovies);
     setIsQueryMovies(true);
     
-    // if (queryMovies){
-    //   localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
-    //   setFoundedMovies(queryMovies)
-    // } 
-    // else {
-    //   localStorage.removeItem("saveMovies");
-    //   setFoundedMovies([]);
-    // }
+    if (queriedMovies){
+      localStorage.setItem("saveMovies", JSON.stringify(queriedMovies));
+      setFoundedMovies(queriedMovies)
+    } 
+    else {
+      localStorage.removeItem("saveMovies");
+      setFoundedMovies([]);
+    }
     
   };
 
@@ -51,13 +52,13 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
     }
   };
 
-  // React.useEffect(() => {
+  React.useEffect(() => {
 
-  //   if (saveMovies) {
-  //     setFoundedMovies(saveMovies);
-  //     setIsFoundedMovies(true);
-  //   }
-  // },[])
+    if (saveMovies) {
+      setFoundedMovies(saveMovies);
+      setIsFoundedMovies(true);
+    }
+  },[])
 
   return (
     <main className="movies">
@@ -69,7 +70,7 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
       />
       {isLoading && <Preloader />}
 
-      {/* {isFoundedMovies && !isQueryMovies && (
+      {isFoundedMovies && !isQueryMovies && (
         <MoviesCardList
           handleAddOrDeleteMovie={handleAddOrDeleteMovie}
           isAddedMovie={isAddedMovie}
@@ -79,7 +80,7 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
           className="movies-card__like-button"
           activeClassName="movies-card__like-button_active"
         />
-      )}  */}
+      )} 
 
       {!isLoading && isQueryMovies && queryMovies && queryMovies.length === 0 && (
         <p>Ничего не найдено</p>

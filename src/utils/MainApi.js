@@ -29,15 +29,15 @@ class Api {
       body: JSON.stringify({
         country: data.country || "country",
         director: data.director || "director",
-        duration: data.duration,
+        duration: data.duration || 0,
         year: data.year || "year",
         description: data.description || "description",
         image: `https://api.nomoreparties.co${data.image.url}` || "https://www.something.com",
-        trailer: data.trailerLink,
+        trailer: data.trailerLink || "https://www.something.com",
         thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}` || "https://www.something.com",
         movieId: data.id,
-        nameRU: data.nameRU,
-        nameEN: data.nameEN,
+        nameRU: data.nameRU || "Название фильма",
+        nameEN: data.nameEN || "nameEN",
       }),
     }).then(this.handleResponse);
   }
