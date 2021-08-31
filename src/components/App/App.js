@@ -41,6 +41,7 @@ function App() {
 
 
   const сheckToken = React.useCallback(() => {
+    setIsLoading(true);
     const path = location.pathname;
     const token = localStorage.getItem("jwt");
     auth
@@ -56,7 +57,7 @@ function App() {
         console.log(err);
         history.push("/");
         setLoggedIn(false);
-      });
+      }).finally(() => setIsLoading(false));
   }, []);
 
   React.useEffect(() => {
@@ -129,9 +130,7 @@ function App() {
       .authorize(data)
       .then((res) => {
         if (res.token) {
-          console.log(res.token)
           localStorage.setItem("jwt", res.token);
-          console.log(localStorage.getItem("jwt"));
           setLoggedIn(true);
           setCurrentUser(res);
           setSuccessText("Авторизация прошла успешно");
@@ -321,7 +320,6 @@ function App() {
           ></ProtectedRoute>
 
           <ProtectedRoute
-            loggedIn={loggedIn}
             path="/saved-movies"
             component={SavedMovies}
             savedMovies={savedMovies}
@@ -331,7 +329,6 @@ function App() {
           ></ProtectedRoute>
 
           <ProtectedRoute
-            loggedIn={loggedIn}
             logout={handleLogout}
             path="/profile"
             component={Profile}

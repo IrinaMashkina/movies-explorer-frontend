@@ -32,7 +32,6 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
     setIsQueryMovies(true);
     
     // if (queryMovies){
-    //   console.log("записать в локал");
     //   localStorage.setItem("saveMovies", JSON.stringify(queryMovies));
     //   setFoundedMovies(queryMovies)
     // } 
@@ -82,11 +81,11 @@ function Movies({  handleAddOrDeleteMovie,  isAddedMovie,   isLoading}) {
         />
       )}  */}
 
-      {isQueryMovies && queryMovies && queryMovies.length === 0 && (
+      {!isLoading && isQueryMovies && queryMovies && queryMovies.length === 0 && (
         <p>Ничего не найдено</p>
       )}
 
-      {isQueryMovies && queryMovies && queryMovies.length !== 0 && (
+      {!isLoading && isQueryMovies && queryMovies && queryMovies.length !== 0 && (
         <MoviesCardList
           handleAddOrDeleteMovie={handleAddOrDeleteMovie}
           isAddedMovie={isAddedMovie}

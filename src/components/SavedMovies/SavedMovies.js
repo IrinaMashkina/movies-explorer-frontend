@@ -31,7 +31,6 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
  function handleSearch(value)  {
    const queriedMovies = handleMoviesSearch(savedMovies, value);
     setQueryMovies(queriedMovies);
-    console.log(handleMoviesSearch(savedMovies, value))
     if (queriedMovies.length !== 0) {
       setIsQueryMovies(true);
       setIsNotFoundMovies(false);
