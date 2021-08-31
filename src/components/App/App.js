@@ -39,7 +39,6 @@ function App() {
   const [isLoadingSignup, setIsLoadingSignup] = React.useState(false);
   const [isLoadingSignin, setIsLoadingSignin] = React.useState(false);
 
-
   const сheckToken = React.useCallback(() => {
     setIsLoading(true);
     const path = location.pathname;
@@ -57,7 +56,8 @@ function App() {
         console.log(err);
         history.push("/");
         setLoggedIn(false);
-      }).finally(() => setIsLoading(false));
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   React.useEffect(() => {
@@ -112,7 +112,6 @@ function App() {
             setSavedMovies(savedArr);
             localStorage.setItem("savedMovies", JSON.stringify(savedArr));
           }
-         
         })
         .catch((err) => {
           localStorage.removeItem("savedMovies");
@@ -172,16 +171,14 @@ function App() {
       .finally(() => setIsLoadingSignup(false));
   }
 
-
-
   // логаут
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("saveMovies");
-    localStorage.clear()
+    localStorage.clear();
     setLoggedIn(false);
-    setCurrentUser({})
+    setCurrentUser({});
     history.push("/");
   };
 
@@ -226,8 +223,10 @@ function App() {
   // удаление фильма из сохранённых (по клику на странице SavedMovies)
   const deleteMoviefromSavedPage = (movie) => {
     setIsLoading(true);
-    const movieId = savedMovies.find((item) => (item.movieId === movie.movieId))._id;
-   
+    const movieId = savedMovies.find(
+      (item) => item.movieId === movie.movieId
+    )._id;
+
     mainApi
       .deleteMovie(movieId)
       .then(() => {
@@ -240,10 +239,11 @@ function App() {
   };
 
   // удаление фильма из сохранённых (по клику на странице Movies)
-  const deleteMovieFromMoviesPage  = (movie) => {
+  const deleteMovieFromMoviesPage = (movie) => {
     setIsLoading(true);
-    const movieId = savedMovies.filter((item) => (item.movieId === movie.id))[0]._id;
-       
+    const movieId = savedMovies.filter((item) => item.movieId === movie.id)[0]
+      ._id;
+
     mainApi
       .deleteMovie(movieId)
       .then(() => {
@@ -255,14 +255,13 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  
-
   // добавлен ли  фильм в сохранённые
   const isAddedMovie = (movie) => {
     if (!savedMovies.message && movie) {
       return savedMovies.some((item) => {
         // console.log(`isAdded item.id: ${item.movieId}, movie.id: ${movie.id}`)
-        return item.movieId === movie.id});
+        return item.movieId === movie.id;
+      });
     }
   };
 
@@ -270,8 +269,6 @@ function App() {
   const handleAddOrDeleteMovie = (movie, isAdded) => {
     !isAdded ? addMovie(movie) : deleteMovieFromMoviesPage(movie);
   };
-
-
 
   // открытие и закрытие модального окна
   function handleInfoTooltipOpen() {
@@ -320,6 +317,7 @@ function App() {
           ></ProtectedRoute>
 
           <ProtectedRoute
+            loggedIn={loggedIn}
             path="/saved-movies"
             component={SavedMovies}
             savedMovies={savedMovies}
@@ -329,6 +327,7 @@ function App() {
           ></ProtectedRoute>
 
           <ProtectedRoute
+            loggedIn={loggedIn}
             logout={handleLogout}
             path="/profile"
             component={Profile}
