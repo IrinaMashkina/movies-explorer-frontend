@@ -29,9 +29,10 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
   };
 
  function handleSearch(value)  {
-    setQueryMovies(handleMoviesSearch(savedMovies, value));
+   const queriedMovies = handleMoviesSearch(savedMovies, value);
+    setQueryMovies(queriedMovies);
     console.log(handleMoviesSearch(savedMovies, value))
-    if (queryMovies.length !== 0) {
+    if (queriedMovies.length !== 0) {
       setIsQueryMovies(true);
       setIsNotFoundMovies(false);
     } else {
@@ -60,7 +61,7 @@ function SavedMovies({ isAddedMovie, deleteMovie, isLoading }) {
 
 
 
-      {!isLoading && savedMovies && !isNotFoundMovies && (
+      {!isLoading && savedMovies && !isNotFoundMovies && !isQueryMovies && (
         <MoviesCardList
           isAddedMovie={isAddedMovie}
           movies={
