@@ -224,7 +224,7 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
-  // удаление фильма из сохранённых
+  // удаление фильма из сохранённых (по клику на странице SavedMovies)
   const deleteMoviefromSavedPage = (movie) => {
     setIsLoading(true);
     const movieId = savedMovies.find((item) => (item.movieId === movie.movieId))._id;
@@ -240,6 +240,7 @@ function App() {
       .finally(() => setIsLoading(false));
   };
 
+  // удаление фильма из сохранённых (по клику на странице Movies)
   const deleteMovieFromMoviesPage  = (movie) => {
     setIsLoading(true);
     const movieId = savedMovies.filter((item) => (item.movieId === movie.id))[0]._id;
