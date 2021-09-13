@@ -1,8 +1,21 @@
 import React from "react";
 import Sign from "../Sign/Sign";
 import { Link } from "react-router-dom";
+import FormValidator from "../../hooks/useFormValidator";
 
-function Login() {
+function Login({onAuthotization, isLoading}) {
+  const { inputValues, errorMessages, isValid, handleInputChange, resetForm } =
+    FormValidator({});
+
+  React.useEffect(() => {
+    resetForm();
+  }, [resetForm]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAuthotization(inputValues);
+  };
+
   const link = (
     <p className="login-form__question">
       Ещё не зарегистрированы?
@@ -13,7 +26,14 @@ function Login() {
   );
 
   return (
-    <Sign title="Рады видеть!" buttonText="Войти" link={link}>
+    <Sign
+      onSubmit={handleSubmit}
+      isValid={isValid}
+      isLoading={isLoading}
+      title="Рады видеть!"
+      buttonText="Войти"
+      link={link}
+    >
       <section className="login-form">
         <section className="login-form__section">
           <label htmlFor="email" className="login-form__label">
@@ -21,17 +41,31 @@ function Login() {
           </label>
           <input
             id="email"
-            className="login-form__input"
+            className={
+              !errorMessages.email
+                ? "login-form__input"
+                : "login-form__input login-form__input_type_error"
+            }
             name="email"
             type="email"
             required
             minLength="2"
             maxLength="40"
+            onChange={handleInputChange}
+            value={inputValues.email ? inputValues.email : ""}
           ></input>
-          <span className="login-form__input-error">
-            Ошибка
+          <span
+            className={
+              !errorMessages.email
+                ? "login-form__span-error"
+                : "login-form__span-error login-form__span-error_active"
+            }
+          >
+            {errorMessages.email}
           </span>
         </section>
+
+
         <section className="login-form__section">
           <label htmlFor="password" className="login-form__label">
             Пароль
@@ -41,12 +75,24 @@ function Login() {
             id="password"
             name="password"
             required
-            minLength="2"
+            minLength="5"
             maxLength="40"
-            className="login-form__input"
+            value={inputValues.password ? inputValues.password : ""}
+            onChange={handleInputChange}
+            className={
+              !errorMessages.password
+                ? "login-form__input"
+                : "login-form__input login-form__input_type_error"
+            }
           ></input>
-          <span className="login-form__input-error">
-            Ошибка
+          <span
+            className={
+             !errorMessages.password
+                ? "login-form__span-error"
+                : "login-form__span-error login-form__span-error_active"
+            }
+          >
+            {errorMessages.password}
           </span>
         </section>
       </section>

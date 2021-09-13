@@ -63,6 +63,13 @@
   line-height: 18px;
   color: black;
 }
+.navigation__link_place_promo {
+  color: white;
+}
+
+.navigation__link_place_promo:hover {
+  color: rgb(229, 218, 248);
+}
 
 .navigation__icon {
   display: block;

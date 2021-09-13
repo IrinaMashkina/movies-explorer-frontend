@@ -1,95 +1,127 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
-import Card1 from "../../images/card1.jpg";
-import Card2 from "../../images/card2.jpg";
-import Card3 from "../../images/card3.jpg";
-import Card4 from "../../images/card4.jpg";
-import Card5 from "../../images/card5.jpg";
-import Card6 from "../../images/card6.jpg";
-import Card7 from "../../images/card7.jpg";
-import Card8 from "../../images/card8.jpg";
-import Card9 from "../../images/card9.jpg";
-import Card10 from "../../images/card10.jpg";
-import Card11 from "../../images/card11.jpg";
-import Card12 from "../../images/card12.jpg";
+import React from "react";
 
-function MoviesCardList(props) {
+import MoviesCard from "../MoviesCard/MoviesCard";
+import ButtonMore from "../ButtonMore/ButtonMore";
+import { base_URL } from "../../constants/constants";
+
+function MoviesCardList({
+  movies,
+  message,
+  className,
+  activeClassName,
+  isMyMovies,
+  isSavedMovies,
+  handleAddOrDeleteMovie,
+  isAddedMovie,
+  deleteMovie,
+}) {
+  const [currentCountMovies, setCurrentCountMovies] = React.useState(0);
+  const [moreMovies, setMoreMovies] = React.useState(0);
+  const [moviesToRender, setMoviesToRender] = React.useState([]);
+
+  // количество карточек в зависимости отширины экрана
+  const countMovies = (windowSize) => {
+    if (windowSize >= 1000) {
+      return 12;
+    }
+    if (windowSize >= 600 && windowSize < 1000) {
+      return 8;
+    } else {
+      return 5;
+    }
+  };
+
+  // количество карточек, добавленных при клике на кнопку ЕЩЁ (в зависимости от ширины экрана)
+  const countMore = (windowSize) => {
+    if (windowSize >= 1000) {
+      return 3;
+    }
+    if (windowSize >= 600 && windowSize < 1000) {
+      return 2;
+    } else {
+      return 2;
+    }
+  };
+
+  const handleResize = React.useCallback(() => {
+    const windowSize = window.innerWidth;
+    setMoreMovies(countMore(windowSize));
+    const count = Math.min(movies.length, countMovies(windowSize));
+    setMoviesToRender(movies.slice(0, count));
+    setCurrentCountMovies(count);
+  }, [movies]);
+
+  // меняем количество отображающихся фильмов в зависимости от меняющегося размера экрана
+  React.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
+
+  const renderMore = () => {
+    const count = Math.min(movies.length, currentCountMovies + moreMovies);
+    const extraMovies = movies.slice(currentCountMovies, count);
+    setMoviesToRender([...moviesToRender, ...extraMovies]);
+    setCurrentCountMovies(count);
+  };
+
+  React.useEffect(() => {
+    // console.log(`movies in MoviesCardList: ${movies}`);
+    if (movies) {
+      const windowSize = window.innerWidth;
+      setMoreMovies(countMore(windowSize));
+      const count = Math.min(movies.length, countMovies(windowSize));
+      setMoviesToRender(movies.slice(0, count));
+      setCurrentCountMovies(count);
+    }
+  }, [movies]);
+
   return (
     <>
-      <section className="movies__cardlist">
-        <MoviesCard
-          duration="1ч 47м"
-          title="33 слова о дизайне"
-          src={Card1}
-          className={`${props.className} ${props.activeClassName}`}
-        />
-        <MoviesCard
-          duration="1ч 3м"
-          title="Киноальманах «100 лет дизайна»"
-          src={Card2}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 42м"
-          title="В погоне за Бенкси"
-          src={Card3}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 21м"
-          title="Баския: Взрыв реальности"
-          src={Card4}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 44м"
-          title="Бег это свобода"
-          src={Card5}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 37м"
-          title="Книготорговцы"
-          src={Card6}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 56м"
-          title="Когда я думаю о Германии ночью"
-          src={Card7}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 59м"
-          title="Gimme Danger: История Игги и The Stooge..."
-          src={Card8}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 42м"
-          title="Дженис: Маленькая девочка грустит"
-          src={Card9}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 10м"
-          title="Соберись перед прыжком"
-          src={Card10}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 4м"
-          title="Пи Джей Харви: A dog called money"
-          src={Card11}
-          className={props.className}
-        />
-        <MoviesCard
-          duration="1ч 7м"
-          title="По волнам: Искусство звука в кино"
-          src={Card12}
-          className={props.className}
-        />
-      </section>
+      <ul className="movies__cardlist">
+        {movies &&
+          !movies.message &&
+          moviesToRender.map((movie) => {
+            return (
+              <MoviesCard
+                movie={movie}
+                key={isMyMovies ? movie._id : movie.id}
+                className={className}
+                activeClassName={activeClassName}
+                country={movie.country}
+                director={movie.director}
+                duration={movie.duration}
+                year={movie.year}
+                description={movie.description}
+                image={
+                  isMyMovies ? movie.image : `${base_URL}${movie.image.url}`
+                }
+                trailer={isMyMovies ? movie.trailer : movie.trailerLink}
+                thumbnail={
+                  !isMyMovies
+                    ? movie.image.formats.thumbnail.url
+                    : movie.thumbnail
+                }
+                movieId={!isMyMovies ? movie.id : movie.movieId}
+                nameRU={movie.nameRU}
+                nameEN={movie.nameEN}
+                handleClick={handleAddOrDeleteMovie}
+                isAddedMovie={isAddedMovie}
+                isSavedMovies={isSavedMovies}
+                onDelete={deleteMovie}
+              />
+            );
+          })}
 
+        {!movies && (
+          <p className="movies__message">{message}</p>
+        )}
+      </ul>
+
+      {movies && currentCountMovies < movies.length && (
+        <ButtonMore onClick={renderMore} />
+      )}
     </>
   );
 }

@@ -12,6 +12,12 @@
   clip: rect(0 0 0 0); /*скрытие браузерного чекбокса */
 }
 
+.filter-checkbox__input_invisible_disabled {
+  pointer-events: none;
+  user-select: none;
+  
+}
+
 /* видимый чекбокс */
 .filter-checkbox__input_visible {
   position: relative;
@@ -22,6 +28,11 @@
   background-color: #ebebeb;
   margin-right: 14px;
   transition: background-color ease-in-out 0.2s;
+}
+
+.filter-checkbox__input_visible_disabled {
+  pointer-events: none;
+  user-select: none;
 }
 
 .filter-checkbox__input_visible::before {

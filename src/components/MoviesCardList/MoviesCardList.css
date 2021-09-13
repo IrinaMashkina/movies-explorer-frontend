@@ -1,4 +1,5 @@
 .movies__cardlist {
+  list-style: none;
   max-width: 100%;
   padding:70px 0;
   margin: 0 auto;
@@ -10,6 +11,11 @@
   grid-template-rows: repeat(4, 1fr);
   grid-auto-rows: auto;
   justify-content: center;
+}
+
+.movies__message {
+  margin: auto;
+  text-align: center;
 }
 
 
