@@ -7,7 +7,7 @@ function Portfolio() {
           <p className="potrfolio__item-name">Статичный сайт</p>
           <a
             className="portfolio__link"
-            href="https://github.com/IrinaMashkina/how-to-learn"
+            href="https://irinamashkina.github.io/how-to-learn/"
             target="_blank"
             rel="noreferrer"
           >
@@ -18,7 +18,7 @@ function Portfolio() {
           <p className="potrfolio__item-name">Адаптивный сайт</p>
           <a
             className="portfolio__link"
-            href="https://github.com/IrinaMashkina/russian-travel"
+            href="https://irinamashkina.github.io/russian-travel/"
             target="_blank"
             rel="noreferrer"
           >

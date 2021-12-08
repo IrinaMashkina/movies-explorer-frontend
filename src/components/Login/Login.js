@@ -46,6 +46,7 @@ function Login({onAuthotization, isLoading}) {
                 ? "login-form__input"
                 : "login-form__input login-form__input_type_error"
             }
+            autoComplete="email"
             name="email"
             type="email"
             required
@@ -71,6 +72,7 @@ function Login({onAuthotization, isLoading}) {
             Пароль
           </label>
           <input
+          autoComplete="current-password"
             type="password"
             id="password"
             name="password"
