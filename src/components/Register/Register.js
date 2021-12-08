@@ -48,6 +48,7 @@ function Register({ onRegistration, isLoading }) {
                 ? "register-form__input"
                 : "register-form__input register-form__input_type_error"
             }
+            autoComplete="username"
             name="name"
             type="text"
             required
@@ -74,6 +75,7 @@ function Register({ onRegistration, isLoading }) {
           </label>
 
           <input
+            autoComplete="email"
             type="email"
             id="email"
             name="email"
@@ -106,6 +108,7 @@ function Register({ onRegistration, isLoading }) {
           </label>
 
           <input
+            autoComplete="new-password"
             type="password"
             id="password"
             className={
